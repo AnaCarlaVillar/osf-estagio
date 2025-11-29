@@ -9,7 +9,7 @@ Para descobrir como contribuir ativamente, visite: [CONTRIBUTING.md](./CONTRIBUT
 
 Temos como objetivo criar um software que facilite o processo de agendamento da [Barbearia Osf](http://localhost:1000/login)<br>
 Nosso projeto utiliza o ambiente de execução `Node.js` e suas principais dependências<br>
-A Linguagem de programação principal com que trabalhamos é o JavaScript
+A Linguagem de programação principal com que trabalhamos é o `JavaScript`
 
 ## Sobre o Código
 
