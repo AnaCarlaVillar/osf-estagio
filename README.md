@@ -1,5 +1,7 @@
 ## Guia
 
+### Sumário
+
 Para visualizar as regras do projeto, visite: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)<br>
 Para descobrir como contribuir ativamente, visite: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
