@@ -2,7 +2,7 @@
 
 Para isso, é necessário que o contribuidor crie uma `fork` da `branch: main`<br>
 Em seguida, deve-se criar um `pull-request` relacionado a `issue` que ele deseja resolver<br>
-Ao enviar o ull-request, são necessários 3 pontos como critério de aceitação:
+Ao enviar o pull-request, são necessários 3 pontos como critério de aceitação:
 
 - `Descrição`: deve-se apresentar uma descrição mínima das alterações realizadas e uma explicação sobre o motivo do pull-request<br>
 - `Código`: seu código deve seguir as especificações em [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)<br>
