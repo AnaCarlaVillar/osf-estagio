@@ -1,7 +1,9 @@
 ### Como contribuo com o projeto?
 
 Para isso, é necessário que o contribuidor crie uma `fork` da `branch: main`
+
 Em seguida, deve-se criar um `pull-request` relacionado a `issue` que ele deseja resolver
+
 Ao enviar o ull-request, são necessários 3 pontos como critério de aceitação:
 
 - `Descrição`: deve-se apresentar uma descrição mínima das alterações realizadas e uma explicação sobre o motivo do pull-request.
