@@ -4,13 +4,13 @@ Para isso, é necessário que o contribuidor crie uma `fork` da `branch: main`<b
 Em seguida, deve-se criar um `pull-request` relacionado a `issue` que ele deseja resolver<br>
 Ao enviar o ull-request, são necessários 3 pontos como critério de aceitação:
 
-- `Descrição`: deve-se apresentar uma descrição mínima das alterações realizadas e uma explicação sobre o motivo do pull-request.
-- `Código`: seu código deve seguir as especificações em [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+- `Descrição`: deve-se apresentar uma descrição mínima das alterações realizadas e uma explicação sobre o motivo do pull-request<br>
+- `Código`: seu código deve seguir as especificações em [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md<br>
 - `Coesão`: seu código deve resolver os problemas e necessidades apresentadas na issue em questão
 
 ## Como iniciar o projeto?
 
-Caso esteja no windows, irei apresentar um tutorial que funciona tanto em um computador pessoal quanto um da faculdade.
+Caso esteja no windows, irei apresentar um tutorial que funciona tanto em um computador pessoal quanto em um da faculdade
 
 1 - Abra seu `Visual Studio Code` e pressione `Ctrl + J`<br>
 2 - No terminal que foi aberto, escreva `cd c:\xampp\htdocs`<br>
