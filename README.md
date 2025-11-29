@@ -5,6 +5,14 @@
 Para visualizar as regras do projeto, visite: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)<br>
 Para descobrir como contribuir ativamente, visite: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
+### Descrição
+
+Temos como objetivo criar um software que facilite o processo de agendamento da [Barbearia Osf](http://localhost:1000/login)<br>
+Nosso projeto utiliza o ambiente de execução `Node.js` e suas principais dependências<br>
+A Linguagem de programação principal com que trabalhamos é o JavaScript
+
+## Sobre o Código
+
 ### Bibliotecas
 
 - `eslint`
@@ -22,35 +30,6 @@ Para descobrir como contribuir ativamente, visite: [CONTRIBUTING.md](./CONTRIBUT
 - `pdfkit`
 - `sweetalert`
 
-### Estilização com Bootstrap (DEPRECATED)
+### Estilização com Bulma
 
-Deve-se substituir `*` por um número para aplicar a estilização
-
-- `text-light` Texto claro
-- `text-dark` Texto escuro
-- `text-muted` Texto cinza
-- `text-center` Centraliza o texto
-
-- `bg-dark` Escuro
-- `bg-light` Claro
-- `bg-primary` Azul
-- `bg-secondary` Cinza médio
-- `bg-success` Verde
-- `bg-danger` Vermelho
-
-- `w-*` Width
-- `h-*` Height
-
-Pode-se substituir `m` por `p` para aplicar padding e substituir `*`
-por `auto` para centralizar o elemento 
-
-- `ms-*` Margin-Start (Left)
-- `me-*` Margin-End (Right)
-- `mt-*` Margin-Top
-- `mb-*` Margin-Bottom
-- `mx-*` Margin-Left + Margin-Right
-- `my-*` Margin-Top + Margin-Bottom
-
-Precisa ser utilizado com `d-flex` ou `d-grid`
-
-- `gap-*` Espaçamento entre elementos
+[Documentação Bulma](https://bulma.io/documentation/)
