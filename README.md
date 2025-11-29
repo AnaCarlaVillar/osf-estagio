@@ -1,56 +1,26 @@
-[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
-[CONTRIBUTING.md](./CONTRIBUTING.md).
-[DOCUMENTATION.md](./DOCUMENTATION.md).
+## Guia
 
-### Iniciar o DB
+Para visualizar as regras do projeto, visite: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)<br>
+Para descobrir como contribuir ativamente, visite: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-[http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
+### Bibliotecas
 
-`npm run db:drop` Exclui o banco obsoleto ou anterior
+- `eslint`
+- `fontawesome`
+- `bcryptjs`
+- `bulma`
+- `livereload`
+- `dotenv`
+- `ejs`
+- `express`
+- `jcalendar.js`
+- `mysql2`
+- `nodemon`
+- `pace-js`
+- `pdfkit`
+- `sweetalert`
 
-`npm run db:setup` Cria um novo banco e adiciona as tabelas e seeds automáticamente
-
-### Instalar pacotes do package.json
-
-Em máquina externa utilize `cmd` antes 
-
-`npm i` ou `npm install`
-
-### Rodar o projeto em modo de desenvolvimento
-
-`npm run dev` (Note que esse "dev" existe no package.json na parte de scripts)
-
-### Reiniciar o projeto em modo de desenvolvimento
-
-`rs`
-
-### Sincronizar o projeto com o github
-
-Isso é para baixar o projeto caso alguém além de você tenha atualizado ele, feito algum
-commit novo...
-
-`git pull`
-
-### Subir um novo commit
-
-```
-git add .
-git commit -m "Alterei X Coisa"
-git push
-```
-
-### Para clonar o projeto no seu PC
-
-```
-git clone https://github.com/Resfriado/osf.git osf
-```
-
-### Regras do front-end
-
-Proibido aplicar estilizações em `html` ou `body`
-Deve-se criar um `div` geral para aplicar estilizações
-
-### Estilizar com o bootstrap
+### Estilização com Bootstrap (DEPRECATED)
 
 Deve-se substituir `*` por um número para aplicar a estilização
 
@@ -82,12 +52,3 @@ por `auto` para centralizar o elemento
 Precisa ser utilizado com `d-flex` ou `d-grid`
 
 - `gap-*` Espaçamento entre elementos
-
-### Bibliotecas
-
-- `nodemon`
-- `livereload`
-- `sweetalert2`
-- `jcalendar.js`
-- `pace-js`
-- `bcryptjs`
