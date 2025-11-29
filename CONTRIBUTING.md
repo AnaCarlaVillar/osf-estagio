@@ -12,12 +12,25 @@ Ao enviar o pull-request, são necessários 3 pontos como critério de aceitaç�
 
 Caso esteja no windows, irei apresentar um tutorial que funciona tanto em um computador pessoal quanto em um da faculdade
 
+No nosso projeto utilizamos o software chamado `XAMPP` para criar, conectar e gerenciar o `Database`<br>
+Para utilizar das capacidades máximas do projeto, é necessário a conexão com um banco de dados<br>
+Clique aqui para [Instalar o XAMPP](https://www.apachefriends.org/pt_br/index.html)
+
 `1` - Abra seu `Visual Studio Code` e pressione `Ctrl + J`<br>
-`2` - No terminal que foi aberto, escreva `cd c:\xampp\htdocs`<br>
+`2` - No terminal que foi aberto, escreva `cd c:\xampp\htdocs` (Caso não tenha o XAMPP instalado, há um tutorial acima)<br> 
 `3` - Abra seu Github e procure por este arquivo nos documentos do projeto<br>
 `4` - Use este comando no terminal: `git clone https://github.com/Resfriado/osf.git` NOME_DA_PASTA (Opcional)<br>
 `5` - Faça a autenticação com o Github se for necessário e use: `cd osf` ou `cd NOME_DA_PASTA`<br>
 `6` - Use `code .` e você será redirecionado a pasta com o projeto totalmente funcional para desenvolvimento
+
+## Como gerenciar o Database (Banco de Dados)?
+
+Ao finalizar a instalação do XAMPP, execute o software e ative o serviço do `MySQL`, sendo o database utilizado no projeto<br>
+Não é necessário ativar o `Apache`, pois nosso projeto consegue criar e editar o database via terminal, sendo apenas útil para debug<br>
+Caso Precise dessa funcionalidade, pode acessar o dashboard aqui [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
+
+`npm run db:drop` Exclui o banco obsoleto ou anterior<br>
+`npm run db:setup` Cria um novo banco e adiciona as tabelas e seeds automaticamente
 
 ## Como desenvolver o projeto?
 
