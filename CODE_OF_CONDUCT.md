@@ -10,7 +10,8 @@
 
 `1` - Nunca se deve aplicar estilizações ao `<html>` ou `<body>`, exceto caso sejam sugestões na pasta `templates`.<br>
 `2` - O uso de `CSS` deve ser evitado ao máximo, se possível todo o html deve ser feito com classes `Bulma`.<br>
-`3` - Deve-se evitar o uso de scripts diretamente no html, é recomendada a criação de um arquivo .js separadamente.
+`3` - Deve-se evitar o uso de scripts diretamente no html, é recomendada a criação de um arquivo .js separadamente.<br>
+`4` - O tema geral do site deve se manter `dark`.
 
 ## Regras do Backend
 
