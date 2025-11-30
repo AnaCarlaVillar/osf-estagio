@@ -42,10 +42,16 @@
     "@eslint/js": "^9.38.0",
     "@eslint/json": "^0.13.2",
     "@eslint/markdown": "^7.5.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
     "connect-livereload": "^0.6.1",
     "eslint": "^9.38.0",
     "globals": "^16.4.0",
     "livereload": "^0.10.3",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

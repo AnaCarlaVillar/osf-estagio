@@ -1,0 +1,84 @@
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/header') %>
+<main class="section is-flex-grow-1">
+  <div class="container">
+    <div class="columns">
+      <div class="column"></div>
+      <div class="column">
+        <div class="box is-rounded has-background-black">
+          <form action="/register" method="POST">
+            <div class="container has-text-centered pb-3">
+              <p class="has-text-weight-semibold">
+                Cadastre-se para realizar seu agendamento!
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input
+                  class="input"
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-signature"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input
+                  class="input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input
+                  class="input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button
+                  class="button is-success is-fullwidth has-text-light has-text-weight-bold"
+                >
+                  Cadastrar-se
+                </button>
+              </p>
+            </div>
+            <div class="divider has-background-dark mb-4"></div>
+            <div
+              id="g_id_onload"
+              data-client_id="YOUR_GOOGLE_CLIENT_ID"
+              data-login_uri="https://your-server.com/login-callback"
+              data-auto_prompt="false"
+            ></div>
+
+            <div class="g_id_signin" data-type="standard"></div>
+          </form>
+        </div>
+      </div>
+      <div class="column"></div>
+    </div>
+  </div>
+</main>
+
+<script src="/public/js/hideHeroFoot.js"></script>
+<script>
+  setTimeout(() => hideHeroFoot(), 100);
+</script>
+<%- include('../../../partials/footer') %>

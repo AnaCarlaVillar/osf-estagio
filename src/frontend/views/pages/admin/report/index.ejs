@@ -1,0 +1,58 @@
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/header') %>
+<main class="section is-flex-grow-1">
+  <div class="container">
+    <div class="columns is-centered is-multiline">
+      <div
+        class="column is-flex is-justify-content-center is-align-items-center is-narrow"
+      >
+        <div class="box p-0 m-0">
+          <article class="panel is-link m-0">
+            <p class="panel-heading has-text-centered py-2">
+              Relatório de Serviços
+            </p>
+          </article>
+          <a href="/files/manual.pdf" download>
+            <button class="button px-6 is-fullwidth">
+              <span class="icon">
+                <i
+                  class="fa-solid fa-download has-text-danger has-text-weight-bold"
+                ></i>
+              </span>
+              <p>Download</p>
+              <p></p>
+            </button>
+          </a>
+        </div>
+      </div>
+      <div
+        class="column is-flex is-justify-content-center is-align-items-center is-narrow"
+      >
+        <div class="box p-0 m-0">
+          <article class="panel is-link m-0">
+            <p class="panel-heading has-text-centered py-2">
+              Relatório de Usuários
+            </p>
+          </article>
+          <a href="/files/manual.pdf" download>
+            <button class="button px-6 is-fullwidth">
+              <span class="icon">
+                <i
+                  class="fa-solid fa-download has-text-danger has-text-weight-bold"
+                ></i>
+              </span>
+              <p>Download</p>
+              <p></p>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="/public/js/hideHeroFoot.js"></script>
+<script>
+  setTimeout(() => hideHeroFoot(), 100);
+</script>
+<%- include('../../../partials/footer') %>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= typeof title !== "undefined" ? title : "OsfBarbearia" %></title>
+    <link rel="icon" type="image/png" href="/public/images/logo.png" />
+    <script>
+      window.paceOptions = {
+        restartOnRequestAfter: false,
+        ajax: false,
+        elements: false,
+        minTime: 400,
+      };
+    </script>
+    <link rel="stylesheet" href="/public/css/loading.css" />
+    <link
+      rel="stylesheet"
+      href="/public/assets/pace-js/pace-theme-loading-bar.css"
+    />
+    <script src="/public/assets/pace-js/pace.min.js"></script>
+    <script>
+      Pace.on("start", () => {
+        document.body.style.overflow = "hidden";
+        const o = document.getElementById("preloader-overlay");
+        if (o) o.style.display = "flex";
+      });
+      Pace.on("done", () => {
+        const o = document.getElementById("preloader-overlay");
+        if (o) {
+          o.style.opacity = "0";
+          setTimeout(() => (o.style.display = "none"), 400);
+        }
+        document.body.style.overflow = "auto";
+      });
+    </script>
+
+    <link rel="stylesheet" href="/public/css/loading.css" />
+    <link rel="stylesheet" href="/public/css/global.css" />
+    <link rel="stylesheet" href="/public/assets/bulma/bulma.min.css" />
+    <link rel="stylesheet" href="/public/assets/fontawesome/css/all.min.css" />
+    <% if (typeof page !== "undefined") { %>
+      <link rel="stylesheet" href="/public/css/<%= page %>.css">
+    <% } %>
+  </head>
+  <body class="is-flex is-flex-direction-column">
+    <div id="preloader-overlay"></div>
+  </body>
+</html>

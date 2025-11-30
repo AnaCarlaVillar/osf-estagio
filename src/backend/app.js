@@ -1,25 +1,29 @@
 const express = require('express');
-const fs = require('fs');
-const session = require('./routes/admin/sessionRoute.js');
-const login = require('./routes/global/loginRoute.js');
-const register = require('./routes/global/registerRoute.js')
-const home = require('./routes/global/homeRoute.js');
-const report = require('./routes/admin/reportRoute.js');
-const dashboard = require('./routes/admin/dashboardRoute.js');
-const services = require('./routes/admin/servicesRoute.js');
-const category = require('./routes/admin/categoryRoute.js');
-const service = require('./routes/admin/serviceRoute.js');
+const path = require("path");
+const session = require('./api/routes/admin/sessionRoute.js');
+const login = require('./api/routes/global/loginRoute.js');
+const register = require('./api/routes/global/registerRoute.js')
+const home = require('./api/routes/global/homeRoute.js');
+const report = require('./api/routes/admin/reportRoute.js');
+const dashboard = require('./api/routes/admin/dashboardRoute.js');
+const services = require('./api/routes/admin/servicesRoute.js');
+const category = require('./api/routes/admin/categoryRoute.js');
+const service = require('./api/routes/admin/serviceRoute.js');
 
-const employees = require('./routes/admin/employeesRoute.js');
+const employees = require('./api/routes/admin/employeesRoute.js');
 
-const pricing = require('./routes/global/pricingRoute.js');
-const team = require('./routes/global/teamRoute.js');
-const booking = require('./routes/global/bookingRoute.js');
+const pricing = require('./api/routes/global/pricingRoute.js');
+const team = require('./api/routes/global/teamRoute.js');
+const booking = require('./api/routes/global/bookingRoute.js');
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.set("views", path.join(__dirname, "../frontend/views"));
+app.set("view engine", "ejs");
+app.locals.basedir = path.join(__dirname, "../frontend/views");
 
 require('./core/middleware/static.js')(app);
 
@@ -31,19 +35,8 @@ if (process.env.NODE_ENV !== 'production') {
 const sessionMiddleware = require('./core/middleware/session.js');
 app.use(sessionMiddleware);
 
-const route = '/login';
-//const newPath = 'src/frontend/public/partials/category.html';
-const newPath = 'src/frontend/pages/auth/login/index.html';
-
 app.get('/', (req, res) => {
-  res.redirect(route);
-});
-
-app.get(route, (req, res) => {
-  fs.readFile(newPath, 'utf8', (err, html) => {
-    if (err) return res.status(500).send('Erro ao carregar a página');
-    res.send(html);
-  });
+  res.redirect('/login');
 });
 
 app.use('/', session);
@@ -61,6 +54,5 @@ app.use('/', employees);
 app.use('/', pricing);
 app.use('/', team);
 app.use('/', booking);
-app.set("view engine", "ejs");
 
 module.exports = app;

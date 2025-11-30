@@ -1,0 +1,44 @@
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/header') %>
+<main class="section is-flex-grow-1">
+  <div class="container pt-6">
+    <div class="columns is-8">
+      <div class="column mx-5">
+        <div class="box py-6">
+          <form action="/services" method="GET">
+            <p class="title has-text-centered">Editar Serviços</p>
+            <button
+              class="button is-warning is-fullwidth py-5 has-text-white title is-4"
+              type="submit"
+            >
+              <span class="icon">
+                <i class="fa-solid fa-file-pen"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="column mx-5">
+        <div class="box py-6">
+          <form action="/employees" method="GET">
+            <p class="title has-text-centered">Editar Funcionários</p>
+            <button
+              class="button is-warning is-fullwidth py-5 has-text-white title is-4"
+              type="submit"
+            >
+              <span class="icon">
+                <i class="fa-solid fa-user-pen"></i>
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="/public/js/hideHeroFoot.js"></script>
+<script>
+  setTimeout(() => hideHeroFoot(), 100);
+</script>
+<%- include('../../../partials/footer') %>

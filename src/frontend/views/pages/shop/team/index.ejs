@@ -1,0 +1,92 @@
+<%- include('../../../partials/head') %> <%- include('../../../partials/header')
+%>
+<main class="section is-flex-grow-1">
+  <p class="title has-text-centered has-text-info">Escolha seu Barbeiro</p>
+
+  <!-- Formulário único -->
+  <form action="/booking" method="GET">
+    <div class="columns is-centered is-multiline" id="category-container">
+      <div
+        class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
+      >
+        <div class="box">
+          <figure class="image is-128x128 ml-6 mb-2">
+            <img
+              class="is-rounded"
+              src="../public/images/barber1.png"
+              alt="Barbeiro 1"
+            />
+          </figure>
+          <p class="title is-4 has-text-centered">Barbeiro 1</p>
+          <p class="subtitle is-6">Especialista em cortes modernos</p>
+          <button
+            type="submit"
+            name="barbeiro"
+            value="Barbeiro 1"
+            class="button is-success is-fullwidth"
+          >
+            Selecionar
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
+      >
+        <div class="box">
+          <figure class="image is-128x128 ml-6 mb-2">
+            <img
+              class="is-rounded"
+              src="../public/images/barber2.png"
+              alt="Barbeiro 2"
+            />
+          </figure>
+          <p class="title is-4 has-text-centered">Barbeiro 2</p>
+          <p class="subtitle is-6">Especialista em barba e bigode</p>
+          <button
+            type="submit"
+            name="barbeiro"
+            value="Barbeiro 2"
+            class="button is-success is-fullwidth"
+          >
+            Selecionar
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
+      >
+        <div class="box">
+          <figure class="image is-128x128 ml-6 mb-2">
+            <img
+              class="is-rounded"
+              src="../public/images/barber3.png"
+              alt="Barbeiro 3"
+            />
+          </figure>
+          <p class="title is-4 has-text-centered">Barbeiro 3</p>
+          <p class="subtitle is-6">Especialista em cortes clássicos</p>
+          <button
+            type="submit"
+            name="barbeiro"
+            value="Barbeiro 3"
+            class="button is-success is-fullwidth"
+          >
+            Selecionar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</main>
+
+<footer id="footer-placeholder"></footer>
+<script src="/public/js/layout.js"></script>
+<script src="/public/js/hideHeroFoot.js"></script>
+<script src="/public/js/showBreadcrumb.js"></script>
+<script>
+  setTimeout(() => hideHeroFoot(), 100);
+  setTimeout(() => showBreadcrumb(), 100);
+</script>
+<%- include('../../../partials/footer') %>
