@@ -1,5 +1,5 @@
-<%- include('../../../partials/head') %>
-<%- include('../../../partials/header') %>
+<%- include('../../../../partials/head') %>
+<%- include('../../../../partials/header') %>
 <main class="section is-flex-grow-1">
   <p class="title has-text-centered has-text-danger">Adicionar Categorias</p>
   <div class="columns is-centered is-multiline" id="category-container">
@@ -168,15 +168,15 @@
   console.log("Categorias carregadas:", categories);
   insertContent(
     "#category-container",
-    "/public/partials/category.html",
+    "/public/partials/category.ejs",
     categories
   );
   const services = await fetch("/service").then((r) => r.json());
   console.log("Serviços carregados:", services);
   insertContent(
     "#service-container",
-    "/public/partials/service.html",
+    "/public/partials/service.ejs",
     services
   );
 </script>
-<%- include('../../../partials/footer') %>
+<%- include('../../../../partials/footer') %>

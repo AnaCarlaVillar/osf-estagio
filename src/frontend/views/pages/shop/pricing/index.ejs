@@ -34,14 +34,14 @@
   console.log("Categorias carregadas:", categories);
   insertContent(
     "#category-container",
-    "/public/partials/category.html",
+    "/public/partials/category.ejs",
     categories
   );
   const services = await fetch("/service").then((r) => r.json());
   console.log("Serviços carregados:", services);
   await insertContent(
     "#service-container",
-    "/public/partials/service.html",
+    "/public/partials/service.ejs",
     services
   );
 </script>

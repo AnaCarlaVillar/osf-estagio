@@ -29,6 +29,7 @@ A Linguagem de programação principal com que trabalhamos é o `JavaScript`
 - `pace-js`
 - `pdfkit`
 - `sweetalert`
+- `typescript`
 
 ### Estilização com Bulma
 
