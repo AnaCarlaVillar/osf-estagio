@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/backend/start.js",
-    "dev": "nodemon src/backend/start.js",
+    "start": "node ts-src/backend/start.ts",
+    "dev": "nodemon --exec ts-node src/backend/start.ts",
     "db:setup": "node src/backend/database/dbSetup.js",
     "db:drop": "node src/backend/database/dbDrop.js"
   },
@@ -45,6 +45,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.5",
+    "@types/express-session": "^1.18.2",
     "@types/node": "^24.10.1",
     "connect-livereload": "^0.6.1",
     "eslint": "^9.38.0",
