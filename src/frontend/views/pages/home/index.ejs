@@ -6,7 +6,7 @@
   <div id="report" class="is-hidden">
     <div class="container py-4">
       <div class="box p-0">
-        <form action="/report" method="GET">
+        <form action="/report/<%= token %>" method="GET">
           <input
             class="button is-info is-fullwidth py-6 has-text-white title is-4"
             type="submit"
@@ -19,7 +19,7 @@
   <div id="dashboard" class="is-hidden">
     <div class="container py-4">
       <div class="box p-0">
-        <form action="/dashboard" method="GET">
+        <form action="/dashboard/<%= token %>" method="GET">
           <input
             class="button is-warning is-fullwidth py-6 has-text-white title is-4"
             type="submit"
@@ -31,7 +31,7 @@
   </div>
   <div class="container py-4">
     <div class="box p-0">
-      <form action="/pricing" method="GET">
+      <form action="/pricing/<%= token %>" method="GET">
         <input
           class="button is-success is-fullwidth py-6 has-text-white title is-4"
           type="submit"

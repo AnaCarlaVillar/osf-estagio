@@ -5,7 +5,7 @@
     <div class="columns is-8">
       <div class="column mx-5">
         <div class="box py-6">
-          <form action="/services" method="GET">
+          <form action="/services/<%= token %>" method="GET">
             <p class="title has-text-centered">Editar Serviços</p>
             <button
               class="button is-warning is-fullwidth py-5 has-text-white title is-4"
@@ -20,7 +20,7 @@
       </div>
       <div class="column mx-5">
         <div class="box py-6">
-          <form action="/employees" method="GET">
+          <form action="/employees/<%= token %>" method="GET">
             <p class="title has-text-centered">Editar Funcionários</p>
             <button
               class="button is-warning is-fullwidth py-5 has-text-white title is-4"

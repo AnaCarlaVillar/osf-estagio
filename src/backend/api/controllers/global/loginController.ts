@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import * as model from "../../models/registerUsuarioModel.js";
 import * as funcionarioLoginModel from "../../models/funcionarioLoginModel.js";
-import { generateUserToken } from "../../core/utils/generateToken.js";
+import { generateUserToken } from "../../../core/utils/token.js";
 
 const newPath = "pages/auth/login/index";
 
@@ -30,7 +30,8 @@ export const login = async (req: Request, res: Response) => {
     );
 
     const token = generateUserToken(user.id);
-    return res.redirect(`/home${token}`);
+    return res.redirect(`/home/${token}`);
+    
   } catch (err) {
     console.error("❌ - Login: \x1b[31m$", err, "\x1b[0m\n");
     return res.redirect("/login?error=db");

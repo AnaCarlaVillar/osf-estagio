@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import * as model from "../../models/registerUsuarioModel.js";
+import { generateUserToken } from "../../../core/utils/token.js";
 
 const newPath = "pages/auth/register/index";
 
@@ -18,9 +19,13 @@ export const register = async (req: Request, res: Response) => {
     const hash = await bcrypt.hash(password, 10);
     await model.registerNewUser(name, email, hash);
 
+    const user = await model.findByEmail(email);
+    if (!user) return res.status(500).send("Erro ao recuperar usuário registrado.");
+
     console.log(`✅ - Register: \x1b[92m${email}\x1b[0m, \x1b[92m${hash}\x1b[0m\n`);
 
-    return res.redirect("/home");
+    const token = generateUserToken(user.id);
+    return res.redirect(`/home/${token}`);
 
   } catch (err) {
     console.error('❌ - Register: \x1b[31m$', err ,'\x1b[0m\n');
