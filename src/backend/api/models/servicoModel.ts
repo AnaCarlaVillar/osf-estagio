@@ -1,14 +1,13 @@
-const db = require('../../core/config/dbConnection');
-const queries = require("../../database/queries/servicoQuery.js");
+import db from '../../core/config/dbConnection.js';
+import { getAll as getAllQuery, getById as getByIdQuery } from '../../database/queries/servicoQuery.js';
+import { RowDataPacket } from 'mysql2';
 
-module.exports = {
-  getAll: async () => {
-    const [rows] = await db.query(queries.getAll);
-    return rows;
-  },
+export async function getAll() {
+  const [rows] = await db.query<RowDataPacket[]>(getAllQuery);
+  return rows;
+}
 
-  getById: async (id: number) => {
-    const [rows] = await db.query(queries.getById, [id]);
-    return rows[0];
-  }
-};
+export async function getById(id: number) {
+  const [rows] = await db.query<RowDataPacket[]>(getByIdQuery, [id]);
+  return rows[0];
+}

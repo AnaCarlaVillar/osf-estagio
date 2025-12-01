@@ -1,7 +1,9 @@
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/admin/dashboardController.js";
+import auth from "../../../core/middleware/token/auth.js";
+
 const router = express.Router();
-const controller = require("../../controllers/admin/dashboardController");
 
-router.get("/dashboard", controller.page);
+router.get("/dashboard", auth, page);
 
-module.exports = router;
+export default router;

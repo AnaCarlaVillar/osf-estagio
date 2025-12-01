@@ -1,14 +1,20 @@
-const db = require('../../core/config/dbConnection');
-const queries = require("../../database/queries/categoriaQuery.js");
+import db from "../../core/config/dbConnection.js";
+import { getAll as getAllQuery, getById as getByIdQuery } from "../../database/queries/categoriaQuery.js";
+import { RowDataPacket } from "mysql2";
 
-module.exports = {
-  getAll: async () => {
-    const [rows] = await db.query(queries.getAll);
-    return rows;
-  },
+interface Categoria extends RowDataPacket {
+  id: number;
+  categoria: string;
+  descricao: string;
+  ativo: number;
+}
 
-  getById: async (id: number) => {
-    const [rows] = await db.query(queries.getById, [id]);
-    return rows[0];
-  }
-};
+export async function getAll(): Promise<Categoria[]> {
+  const [rows] = await db.query<Categoria[]>(getAllQuery);
+  return rows;
+}
+
+export async function getById(id: number): Promise<Categoria | null> {
+  const [rows] = await db.query<Categoria[]>(getByIdQuery, [id]);
+  return rows[0] ?? null;
+}

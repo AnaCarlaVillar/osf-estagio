@@ -1,7 +1,9 @@
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/global/teamController.js";
+import auth from "../../../core/middleware/token/auth.js";
+
 const router = express.Router();
-const controller = require("../../controllers/global/teamController");
 
-router.get("/team", controller.page);
+router.get("/team", auth, page);
 
-module.exports = router;
+export default router;

@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+import express from "express";
+import { page, register } from "../../controllers/global/registerController.js";
 const router = express.Router();
-const controller = require("../../controllers/global/registerController");
-router.get("/register", controller.page);
-router.post("/register", controller.register);
-module.exports = router;
+router.get("/register", page);
+router.post("/register", register);
+export default router;
 //# sourceMappingURL=registerRoute.js.map

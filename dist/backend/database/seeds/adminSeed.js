@@ -1,9 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const bcrypt = require('bcryptjs');
-const mysql = require('mysql2/promise');
-require('dotenv').config();
-async function adminSeed() {
+import bcrypt from 'bcryptjs';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+dotenv.config();
+export async function adminSeed() {
     const connection = await mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
@@ -21,5 +20,4 @@ async function adminSeed() {
      VALUES (?, '{}', 'admin')`, [usuario.insertId]);
     await connection.end();
 }
-module.exports = { adminSeed };
 //# sourceMappingURL=adminSeed.js.map

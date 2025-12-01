@@ -1,13 +1,16 @@
-import { Express } from "express";
+import type { Express } from "express";
+import path from "path";
+import livereload from "livereload";
+import connectLivereload from "connect-livereload";
+import { fileURLToPath } from "url";
 
-const path = require("path");
-const livereload = require("livereload");
-const connectLivereload = require("connect-livereload");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-function setupDevReload(app: Express) {
+export default function setupDevReload(app: Express) {
   try {
     const liveReloadServer = livereload.createServer({
-      exts: ['html', 'css', 'js', 'ts'],
+      exts: ["html", "css", "js", "ts"],
       delay: 50,
     });
 
@@ -16,15 +19,13 @@ function setupDevReload(app: Express) {
     app.use(connectLivereload());
 
     liveReloadServer.server.on("connection", () => {
+
     });
-      //console.log('\n\x1b[90m╭──────────────────────────────\x1b[38;5;153mOsf\x1b[0m\x1b[90m─\x1b[0m\x1b[38;5;153mBarbearia\x1b[0m\x1b[90m──────────────────────────────╮\n│                                                                         │\x1b[0m\n\x1b[92m◆  LiveReload\x1b[0m                                                             \x1b[90m│\n│                                                                         │');
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error(err.message);
     } else {
-      console.error("Unknown error:", err)
+      console.error("Unknown error:", err);
     }
   }
 }
-
-module.exports = setupDevReload;

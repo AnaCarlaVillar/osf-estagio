@@ -1,1 +1,1 @@
-{"version":3,"file":"servicesController.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/controllers/admin/servicesController.ts"],"names":[],"mappings":""}
+{"version":3,"file":"servicesController.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/controllers/admin/servicesController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAI5C,eAAO,MAAM,IAAI,GAAI,KAAK,OAAO,EAAE,KAAK,QAAQ,SAAsE,CAAC"}

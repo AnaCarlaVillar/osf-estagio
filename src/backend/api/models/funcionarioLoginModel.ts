@@ -1,9 +1,12 @@
-const db = require('../../core/config/dbConnection');
-const { getCargo: qCargo } = require('../../database/queries/funcionarioLoginQuery.js');
+import db from '../../core/config/dbConnection.js';
+import { getCargo as query } from '../../database/queries/funcionarioLoginQuery.js';
+import { RowDataPacket } from 'mysql2';
 
-async function getCargo(usuarioId: number) {
-  const [rows] = await db.query(qCargo, [usuarioId]);
-  return rows[0];
+interface CargoRow extends RowDataPacket {
+  cargo: string | null; // adjust according to your query result
 }
 
-module.exports = { getCargo };
+export async function getCargo(usuarioId: number) {
+  const [rows] = await db.query<CargoRow[]>(query, [usuarioId]);
+  return rows[0];
+}

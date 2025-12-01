@@ -1,8 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/global/bookingController.js";
+import auth from "../../../core/middleware/auth.js";
 const router = express.Router();
-const controller = require("../../controllers/global/bookingController");
-router.get("/booking", controller.page);
-module.exports = router;
+router.get("/booking", auth, page);
+export default router;
 //# sourceMappingURL=bookingRoute.js.map

@@ -1,8 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/admin/employeesController.js";
+import auth from "../../../core/middleware/auth.js";
 const router = express.Router();
-const controller = require("../../controllers/admin/employeesController");
-router.get("/employees", controller.page);
-module.exports = router;
+router.get("/employees", auth, page);
+export default router;
 //# sourceMappingURL=employeesRoute.js.map

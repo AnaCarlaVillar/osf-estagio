@@ -1,9 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require('fs');
-const path = require('path');
-const mysql = require('mysql2/promise');
-require('dotenv').config();
+import fs from 'fs';
+import path from 'path';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+dotenv.config();
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -17,7 +19,7 @@ function logFileLine(file) {
     const totalWidth = 63;
     const left = `│\x1b[0m      ╰ \x1b[93m${file}\x1b[0m`;
     const visibleLength = stripAnsi(left).length;
-    const spaces = Math.max(totalWidth - visibleLength - 1, 0); // -1 pro último │
+    const spaces = Math.max(totalWidth - visibleLength - 1, 0);
     const padding = ' '.repeat(spaces);
     console.log(`${left}${padding}\x1b[90m│`);
 }
@@ -50,7 +52,8 @@ async function runSqlFiles(folder) {
         await createDatabase();
         console.log(`│\x1b[0m    • \x1b[38;2;255;170;170mMigrations\x1b[0m:                                            \x1b[90m│`);
         await runSqlFiles(path.join(__dirname, 'migrations'));
-        const { adminSeed } = require('./seeds/adminSeed.js');
+        // dynamic import for ESM
+        const { adminSeed } = await import('./seeds/adminSeed.js');
         console.log(`│\x1b[0m    • \x1b[38;2;255;170;170mSeeds\x1b[0m:                                                 \x1b[90m│`);
         await runSqlFiles(path.join(__dirname, 'seeds'));
         await adminSeed();

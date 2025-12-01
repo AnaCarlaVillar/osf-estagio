@@ -1,24 +1,25 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const fs = require("fs");
-const path = require("path");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Root of the project → 2 folders up from backend/core/utils
 const ROOT = path.join(__dirname, "../../../../");
 
 type LoadDataFn = (req: Request, res: Response) => Promise<any> | any;
-exports.showPage = (relativeFrontendPath: string, loadData?: LoadDataFn) => {
+
+export const showPage = (relativeFrontendPath: string, loadData?: LoadDataFn) => {
   return async (req: Request, res: Response) => {
     try {
-      // Always resolve from root of the project
+
       const filePath = path.join(ROOT, relativeFrontendPath);
 
-      // If static HTML → works as before
       if (!loadData) {
         return res.sendFile(filePath);
       }
 
-      // Dynamic version → injects window.data
       let html = fs.readFileSync(filePath, "utf8");
 
       const data = await loadData(req, res);

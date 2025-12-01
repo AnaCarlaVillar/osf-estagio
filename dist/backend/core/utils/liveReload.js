@@ -1,19 +1,19 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
-const livereload = require("livereload");
-const connectLivereload = require("connect-livereload");
-function setupDevReload(app) {
+import path from "path";
+import livereload from "livereload";
+import connectLivereload from "connect-livereload";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+export default function setupDevReload(app) {
     try {
         const liveReloadServer = livereload.createServer({
-            exts: ['html', 'css', 'js', 'ts'],
+            exts: ["html", "css", "js", "ts"],
             delay: 50,
         });
         liveReloadServer.watch(path.join(__dirname, "../../../frontend"));
         app.use(connectLivereload());
         liveReloadServer.server.on("connection", () => {
         });
-        //console.log('\n\x1b[90m╭──────────────────────────────\x1b[38;5;153mOsf\x1b[0m\x1b[90m─\x1b[0m\x1b[38;5;153mBarbearia\x1b[0m\x1b[90m──────────────────────────────╮\n│                                                                         │\x1b[0m\n\x1b[92m◆  LiveReload\x1b[0m                                                             \x1b[90m│\n│                                                                         │');
     }
     catch (err) {
         if (err instanceof Error) {
@@ -24,5 +24,4 @@ function setupDevReload(app) {
         }
     }
 }
-module.exports = setupDevReload;
 //# sourceMappingURL=liveReload.js.map

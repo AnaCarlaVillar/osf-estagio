@@ -1,42 +1,49 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
+import path from "path";
+import { fileURLToPath } from "url";
 
-const express = require('express');
-const path = require("path");
-// const session = require('./api/routes/admin/sessionRoute');
-const login = require('./api/routes/global/loginRoute');
-const register = require('./api/routes/global/registerRoute')
-const home = require('./api/routes/global/homeRoute');
-const report = require('./api/routes/admin/reportRoute');
-const dashboard = require('./api/routes/admin/dashboardRoute');
-const services = require('./api/routes/admin/servicesRoute');
-const category = require('./api/routes/admin/categoryRoute');
-const service = require('./api/routes/admin/serviceRoute');
-const employees = require('./api/routes/admin/employeesRoute');
-const pricing = require('./api/routes/global/pricingRoute');
-const team = require('./api/routes/global/teamRoute');
-const booking = require('./api/routes/global/bookingRoute');
+import setupStatic from "./core/middleware/static.js";
+
+import login from "./api/routes/global/loginRoute.js";
+import register from "./api/routes/global/registerRoute.js";
+import home from "./api/routes/global/homeRoute.js";
+import report from "./api/routes/admin/reportRoute.js";
+import dashboard from "./api/routes/admin/dashboardRoute.js";
+import services from "./api/routes/admin/servicesRoute.js";
+import category from "./api/routes/admin/categoryRoute.js";
+import service from "./api/routes/admin/serviceRoute.js";
+import employees from "./api/routes/admin/employeesRoute.js";
+import pricing from "./api/routes/global/pricingRoute.js";
+import team from "./api/routes/global/teamRoute.js";
+import booking from "./api/routes/global/bookingRoute.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.set("views", path.join(__dirname, "../frontend/views"));
 app.set("view engine", "ejs");
 app.locals.basedir = path.join(__dirname, "../frontend/views");
 
-require('./core/middleware/static')(app);
+setupStatic(app);
 
-if (process.env.NODE_ENV !== 'production') {
-  const setupLiveReload = require('./core/utils/liveReload');
-  setupLiveReload(app);
+async function initLiveReload() {
+  if (process.env.NODE_ENV !== 'production') {
+    const { default: setupLiveReload } = await import("./core/utils/liveReload.js");
+    setupLiveReload(app);
+  }
 }
+
+initLiveReload();
 
 app.get('/', (req: Request, res: Response) => {
   res.redirect('/login');
 });
 
-// app.use('/', session);
 app.use('/', login);
 app.use('/', register);
 app.use('/', home);
@@ -50,4 +57,4 @@ app.use('/', pricing);
 app.use('/', team);
 app.use('/', booking);
 
-module.exports = app;
+export default app;

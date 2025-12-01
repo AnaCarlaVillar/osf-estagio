@@ -1,8 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/admin/dashboardController.js";
+import auth from "../../../core/middleware/auth.js";
 const router = express.Router();
-const controller = require("../../controllers/admin/dashboardController");
-router.get("/dashboard", controller.page);
-module.exports = router;
+router.get("/dashboard", auth, page);
+export default router;
 //# sourceMappingURL=dashboardRoute.js.map

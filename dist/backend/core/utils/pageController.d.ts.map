@@ -1,1 +1,1 @@
-{"version":3,"file":"pageController.d.ts","sourceRoot":"","sources":["../../../../src/backend/core/utils/pageController.ts"],"names":[],"mappings":""}
+{"version":3,"file":"pageController.d.ts","sourceRoot":"","sources":["../../../../src/backend/core/utils/pageController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAU5C,KAAK,UAAU,GAAG,CAAC,GAAG,EAAE,OAAO,EAAE,GAAG,EAAE,QAAQ,KAAK,OAAO,CAAC,GAAG,CAAC,GAAG,GAAG,CAAC;AAEtE,eAAO,MAAM,QAAQ,GAAI,sBAAsB,MAAM,EAAE,WAAW,UAAU,MAC5D,KAAK,OAAO,EAAE,KAAK,QAAQ,kBA0B1C,CAAC"}

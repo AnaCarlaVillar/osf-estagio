@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ts-src/backend/start.ts",
-    "dev": "nodemon --exec ts-node src/backend/start.ts",
-    "db:setup": "node src/backend/database/dbSetup.js",
-    "db:drop": "node src/backend/database/dbDrop.js"
+    "start": "node --loader ts-node/esm src/backend/start.ts",
+    "dev": "nodemon --watch src/**/*.ts --exec node --loader ts-node/esm src/backend/start.ts",
+    "db:setup": "node --loader ts-node/esm src/backend/database/dbSetup.js",
+    "db:drop": "node --loader ts-node/esm src/backend/database/dbDrop.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Resfriado/osf/issues"
   },
@@ -31,6 +31,7 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "jcalendar.js": "^2.12.3",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.15.2",
     "pace-js": "^1.2.4",
     "pdfkit": "^0.17.2",
@@ -43,9 +44,12 @@
     "@eslint/json": "^0.13.2",
     "@eslint/markdown": "^7.5.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/connect-livereload": "^0.6.3",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.5",
     "@types/express-session": "^1.18.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/livereload": "^0.9.5",
     "@types/node": "^24.10.1",
     "connect-livereload": "^0.6.1",
     "eslint": "^9.38.0",

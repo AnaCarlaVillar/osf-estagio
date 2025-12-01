@@ -1,10 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const bcrypt = require("bcryptjs");
-const model = require("../../models/registerUsuarioModel");
+import bcrypt from "bcryptjs";
+import * as model from "../../models/registerUsuarioModel.js";
 const newPath = "pages/auth/register/index";
-exports.page = (req, res) => { res.render(newPath, { page: "register", title: "Register" }); };
-exports.register = async function (req, res) {
+export const page = (req, res) => {
+    res.render(newPath, { page: "register", title: "Register" });
+};
+export const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         if (!name || !email || !password)

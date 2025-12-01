@@ -1,9 +1,8 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
+import * as model from "../../models/categoriaModel.js";
+import * as registerModel from "../../models/registerCategoriaModel.js";
 
-const model = require("../../models/categoriaModel");
-const registerModel = require("../../models/registerCategoriaModel");
-
-exports.getAll = async (req: Request, res: Response) => {
+export const getAll = async (req: Request, res: Response) => {
   try {
     const categorias = await model.getAll();
     res.json(categorias);
@@ -13,26 +12,28 @@ exports.getAll = async (req: Request, res: Response) => {
   }
 };
 
-exports.getById = async (req: Request, res: Response) => {
+export const getById = async (req: Request, res: Response) => {
   try {
-    const categoria = await model.getById(req.params.id);
+    const categoria = await model.getById(Number(req.params.id));
     res.json(categoria);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erro ao buscar categoria" });
   }
 };
-exports.register = async function (req: Request, res: Response) {
+
+export const register = async (req: Request, res: Response) => {
   try {
     const { name, description } = req.body;
-
     await registerModel.registerNewCategory(name, description);
 
-    console.log(`✅ - Category: \x1b[92m${name}\x1b[0m, \x1b[92m${description}\x1b[0m\n`);
-    return res.redirect("/services");
+    console.log(
+      `✅ - Category: \x1b[92m${name}\x1b[0m, \x1b[92m${description}\x1b[0m\n`
+    );
 
+    return res.redirect("/services");
   } catch (err) {
-    console.error('❌ - Category: \x1b[31m$', err ,'\x1b[0m\n');
+    console.error("❌ - Category: \x1b[31m$", err, "\x1b[0m\n");
     return res.status(500).send("Erro ao registrar categoria.");
   }
 };

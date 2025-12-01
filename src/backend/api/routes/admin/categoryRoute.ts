@@ -1,9 +1,10 @@
-const express = require("express");
+import express from "express";
+import { getAll, getById, register } from "../../controllers/admin/serviceController.js";
+
 const router = express.Router();
-const controller = require("../../controllers/admin/categoryController");
 
-router.get("/category", controller.getAll);
-router.get("/category/:id", controller.getById);
-router.post("/category", controller.register);
+router.get("/category", getAll);
+router.get("/category/:id", getById);
+router.post("/category", register);
 
-module.exports = router;
+export default router;

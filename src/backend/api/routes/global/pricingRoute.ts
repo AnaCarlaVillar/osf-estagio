@@ -1,7 +1,9 @@
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/global/pricingController.js";
+import auth from "../../../core/middleware/token/auth.js";
+
 const router = express.Router();
-const controller = require("../../controllers/global/pricingController");
 
-router.get("/pricing", controller.page);
+router.get("/pricing", auth, page);
 
-module.exports = router;
+export default router;

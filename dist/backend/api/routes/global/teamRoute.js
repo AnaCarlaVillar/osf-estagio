@@ -1,8 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/global/teamController.js";
+import auth from "../../../core/middleware/auth.js";
 const router = express.Router();
-const controller = require("../../controllers/global/teamController");
-router.get("/team", controller.page);
-module.exports = router;
+router.get("/team", auth, page);
+export default router;
 //# sourceMappingURL=teamRoute.js.map

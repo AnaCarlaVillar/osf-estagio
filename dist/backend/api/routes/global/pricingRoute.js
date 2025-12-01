@@ -1,8 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+import express from "express";
+import { page } from "../../controllers/global/pricingController.js";
+import auth from "../../../core/middleware/auth.js";
 const router = express.Router();
-const controller = require("../../controllers/global/pricingController");
-router.get("/pricing", controller.page);
-module.exports = router;
+router.get("/pricing", auth, page);
+export default router;
 //# sourceMappingURL=pricingRoute.js.map

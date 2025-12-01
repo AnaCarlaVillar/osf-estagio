@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
+import express from "express";
+import { getAll, getById, register } from "../../controllers/admin/serviceController.js";
 const router = express.Router();
-const controller = require("../../controllers/admin/categoryController");
-router.get("/category", controller.getAll);
-router.get("/category/:id", controller.getById);
-router.post("/category", controller.register);
-module.exports = router;
+router.get("/category", getAll);
+router.get("/category/:id", getById);
+router.post("/category", register);
+export default router;
 //# sourceMappingURL=categoryRoute.js.map

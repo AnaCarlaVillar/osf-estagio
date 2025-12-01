@@ -1,19 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
-const path = require("path");
-// Root of the project → 2 folders up from backend/core/utils
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ROOT = path.join(__dirname, "../../../../");
-exports.showPage = (relativeFrontendPath, loadData) => {
+export const showPage = (relativeFrontendPath, loadData) => {
     return async (req, res) => {
         try {
-            // Always resolve from root of the project
             const filePath = path.join(ROOT, relativeFrontendPath);
-            // If static HTML → works as before
             if (!loadData) {
                 return res.sendFile(filePath);
             }
-            // Dynamic version → injects window.data
             let html = fs.readFileSync(filePath, "utf8");
             const data = await loadData(req, res);
             if (data) {

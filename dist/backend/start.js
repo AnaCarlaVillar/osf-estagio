@@ -1,9 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 process.env.DOTENV_LOG = "false";
-require('dotenv').config({ override: true });
-const app = require('./app');
-const PORT = process.env.PORT || 3000;
+import dotenv from "dotenv";
+import app from "./app.js";
+dotenv.config({ override: true });
+const PORT = process.env.PORT || 1000;
 app.listen(PORT, () => {
     console.log(`\n\x1b[90m╭────────────────────────\x1b[38;5;153mOsf\x1b[0m\x1b[90m─\x1b[0m\x1b[38;5;153mBarbearia\x1b[0m\x1b[90m────────────────────────╮`);
     console.log(`│                                                             │`);

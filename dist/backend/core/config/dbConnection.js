@@ -1,6 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mysql = require('mysql2');
+import mysql from 'mysql2/promise';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import process from 'process';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const DB_NAME = process.env.DB_NAME;
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -10,7 +13,7 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
-}).promise();
+});
 (async () => {
     try {
         const conn = await pool.getConnection();
@@ -20,11 +23,17 @@ const pool = mysql.createPool({
         console.log('╰─────────────────────────────────────────────────────────────╯\x1b[0m\n');
     }
     catch (err) {
-        console.error('│\x1b[0m    •\x1b[31m', err.message, '\x1b[0m                        \x1b[90m│');
+        if (err instanceof Error) {
+            console.error('│\x1b[0m    •\x1b[31m', err.message, '\x1b[0m                        \x1b[90m│');
+        }
+        else {
+            console.error('│                                                             │');
+            console.error('│\x1b[0m    •\x1b[31m', String(err), '\x1b[0m                        \x1b[90m│');
+        }
         console.error('│                                                             │');
         console.error('╰─────────────────────────────────────────────────────────────╯\x1b[0m\n');
         process.exit(1);
     }
 })();
-module.exports = pool;
+export default pool;
 //# sourceMappingURL=dbConnection.js.map

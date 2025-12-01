@@ -1,15 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const db = require('../../core/config/dbConnection');
-const queries = require("../../database/queries/servicoQuery.js");
-module.exports = {
-    getAll: async () => {
-        const [rows] = await db.query(queries.getAll);
-        return rows;
-    },
-    getById: async (id) => {
-        const [rows] = await db.query(queries.getById, [id]);
-        return rows[0];
-    }
-};
+import db from '../../core/config/dbConnection.js';
+import { getAll as getAllQuery, getById as getByIdQuery } from '../../database/queries/servicoQuery.js';
+export async function getAll() {
+    const [rows] = await db.query(getAllQuery);
+    return rows;
+}
+export async function getById(id) {
+    const [rows] = await db.query(getByIdQuery, [id]);
+    return rows[0];
+}
 //# sourceMappingURL=servicoModel.js.map

@@ -1,9 +1,10 @@
-const express = require("express");
+import express from "express";
+import { getAll, getById, register } from "../../controllers/admin/serviceController.js";
+
 const router = express.Router();
-const controller = require("../../controllers/admin/serviceController");
 
-router.get("/service", controller.getAll);
-router.get("/service/:id", controller.getById);
-router.post("/service", controller.register);
+router.get("/service", getAll);
+router.get("/service/:id", getById);
+router.post("/service", register);
 
-module.exports = router;
+export default router;
