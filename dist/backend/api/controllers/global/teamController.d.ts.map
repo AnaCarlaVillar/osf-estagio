@@ -1,1 +1,1 @@
-{"version":3,"file":"teamController.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/controllers/global/teamController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAI5C,eAAO,MAAM,IAAI,GAAI,KAAK,OAAO,EAAE,KAAK,QAAQ,SAA8D,CAAC"}
+{"version":3,"file":"teamController.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/controllers/global/teamController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAI5C,eAAO,MAAM,IAAI,GAAI,KAAK,OAAO,EAAE,KAAK,QAAQ,SAG/C,CAAC"}

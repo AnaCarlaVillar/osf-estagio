@@ -25,13 +25,14 @@ export const login = async (req: Request, res: Response) => {
     const cargoResult = await funcionarioLoginModel.getCargo(user.id);
     const cargo = cargoResult?.cargo ?? null;
 
+    const token = generateUserToken({ id: user.id, cargo });
+
     console.log(
       `✅ - Login: \x1b[92m${email}\x1b[0m, \x1b[92m${user.senha}\x1b[0m, \x1b[92m${cargo}\x1b[0m\n`
     );
 
-    const token = generateUserToken(user.id);
     return res.redirect(`/home/${token}`);
-    
+
   } catch (err) {
     console.error("❌ - Login: \x1b[31m$", err, "\x1b[0m\n");
     return res.redirect("/login?error=db");

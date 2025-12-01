@@ -41,7 +41,7 @@
 <div id="modal-category" class="modal">
   <div class="modal-background"></div>
   <div class="modal-card">
-    <form action="/category" method="POST">
+    <form action="/category/<%= token %>" method="POST">
       <header class="modal-card-head">
         <p class="modal-card-title">Adicionar Categoria</p>
         <button class="delete" aria-label="close" type="button"></button>
@@ -82,7 +82,7 @@
 <div id="modal-service" class="modal">
   <div class="modal-background"></div>
   <div class="modal-card">
-    <form action="/service" method="POST">
+    <form action="/service/<%= token %>" method="POST">
       <header class="modal-card-head">
         <p class="modal-card-title">Adicionar Serviço</p>
         <button class="delete" aria-label="close" type="button"></button>

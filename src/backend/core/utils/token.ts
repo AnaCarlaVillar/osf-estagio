@@ -6,6 +6,6 @@ if (!process.env.URL_TOKEN_SECRET) {
 
 const SECRET: string = process.env.URL_TOKEN_SECRET;
 
-export function generateUserToken(userId: number | string): string {
-  return jwt.sign({ id: userId }, SECRET, { expiresIn: "1h" });
+export function generateUserToken(payload: { id: number | string; cargo?: string | null }): string {
+  return jwt.sign(payload, SECRET, { expiresIn: "1h" });
 }

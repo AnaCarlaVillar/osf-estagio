@@ -1,5 +1,6 @@
 import express from 'express';
 import path from "path";
+import { fileURLToPath } from "url";
 import setupStatic from "./core/middleware/static.js";
 import login from "./api/routes/global/loginRoute.js";
 import register from "./api/routes/global/registerRoute.js";
@@ -16,14 +17,19 @@ import booking from "./api/routes/global/bookingRoute.js";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.set("views", path.join(__dirname, "../frontend/views"));
 app.set("view engine", "ejs");
 app.locals.basedir = path.join(__dirname, "../frontend/views");
 setupStatic(app);
-if (process.env.NODE_ENV !== 'production') {
-    const { default: setupLiveReload } = await import("./core/utils/liveReload.js");
-    setupLiveReload(app);
+async function initLiveReload() {
+    if (process.env.NODE_ENV !== 'production') {
+        const { default: setupLiveReload } = await import("./core/utils/liveReload.js");
+        setupLiveReload(app);
+    }
 }
+initLiveReload();
 app.get('/', (req, res) => {
     res.redirect('/login');
 });

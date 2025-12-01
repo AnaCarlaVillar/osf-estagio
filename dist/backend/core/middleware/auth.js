@@ -1,22 +1,28 @@
 import jwt from "jsonwebtoken";
-export default function auth(req, res, next) {
-    const authHeader = req.headers["authorization"];
-    if (!authHeader)
-        return res.status(401).json({ message: "No token provided" });
-    const token = authHeader.split(" ")[1];
-    if (!token)
-        return res.status(401).json({ message: "Invalid token format" });
+import * as model from "../../api/models/usuarioModel.js";
+const SECRET = process.env.URL_TOKEN_SECRET;
+if (!SECRET) {
+    throw new Error("URL_TOKEN_SECRET não definido no .env");
+}
+export default async function auth(req, res, next) {
     try {
-        const secret = process.env.JWT_SECRET || "default_secret";
-        const decoded = jwt.verify(token, secret);
-        if (typeof decoded === "string") {
-            return res.status(401).json({ message: "Invalid token payload" });
-        }
-        req.user = decoded;
+        // Pega token da URL ou do header Authorization
+        const token = req.params.token || req.headers.authorization?.split(" ")[1];
+        if (!token)
+            return res.status(401).send("Token não fornecido");
+        // Decodifica token — agora o payload é um objeto com id e cargo
+        const decoded = jwt.verify(token, SECRET);
+        // Busca usuário no DB (opcional: validar ativo ou outros campos)
+        const user = await model.findById(decoded.id);
+        if (!user)
+            return res.status(401).send("Token inválido");
+        // Popula req.user com um objeto consistente
+        req.user = { id: user.id, cargo: decoded.cargo ?? null };
         next();
     }
     catch (err) {
-        return res.status(401).json({ message: "Invalid or expired token" });
+        console.error("❌ Auth Middleware:", err.message, err.stack);
+        return res.status(401).send("Token inválido ou expirado");
     }
 }
 //# sourceMappingURL=auth.js.map

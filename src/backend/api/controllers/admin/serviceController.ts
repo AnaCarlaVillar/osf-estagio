@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as model from '../../models/servicoModel.js';
 import * as registerModel from '../../models/registerServicoModel.js';
+import { generateUserToken } from "../../../core/utils/token.js";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -38,7 +39,15 @@ export const register = async (req: Request, res: Response) => {
       `✅ - Service: \x1b[92m${categoria}\x1b[0m, \x1b[92m${nome}\x1b[0m, \x1b[92m${descricao}\x1b[0m, \x1b[92m${duracao}\x1b[0m, \x1b[92m${preco}\x1b[0m\n`
     );
 
-    return res.redirect('/services');
+    if (!req.user?.id) return res.status(401).send("Usuário não autenticado");
+
+    const token = generateUserToken({
+      id: req.user.id,
+      cargo: req.user.cargo ?? null,
+    });
+
+    return res.redirect(`/services/${token}`);
+
   } catch (err) {
     console.error('❌ - Service: \x1b[31m$', err, '\x1b[0m\n');
     return res.status(500).send('Erro ao registrar servico.');

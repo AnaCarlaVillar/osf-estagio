@@ -3,32 +3,31 @@
 <main
   class="section is-flex-grow-1 is-flex is-flex-direction-column is-align-items-stretch"
 >
-  <div id="report" class="is-hidden">
-    <div class="container py-4">
-      <div class="box p-0">
-        <form action="/report/<%= token %>" method="GET">
-          <input
-            class="button is-info is-fullwidth py-6 has-text-white title is-4"
-            type="submit"
-            value="Relatórios"
-          />
-        </form>
-      </div>
+  <% if (cargo === "admin") { %>
+  <div class="container py-4">
+    <div class="box p-0">
+      <form action="/report/<%= token %>" method="GET">
+        <input
+          class="button is-info is-fullwidth py-6 has-text-white title is-4"
+          type="submit"
+          value="Relatórios"
+        />
+      </form>
     </div>
   </div>
-  <div id="dashboard" class="is-hidden">
-    <div class="container py-4">
-      <div class="box p-0">
-        <form action="/dashboard/<%= token %>" method="GET">
-          <input
-            class="button is-warning is-fullwidth py-6 has-text-white title is-4"
-            type="submit"
-            value="Admin Dashboard"
-          />
-        </form>
-      </div>
+  <% } %> <% if (cargo === "admin") { %>
+  <div class="container py-4">
+    <div class="box p-0">
+      <form action="/dashboard/<%= token %>" method="GET">
+        <input
+          class="button is-warning is-fullwidth py-6 has-text-white title is-4"
+          type="submit"
+          value="Admin Dashboard"
+        />
+      </form>
     </div>
   </div>
+  <% } %>
   <div class="container py-4">
     <div class="box p-0">
       <form action="/pricing/<%= token %>" method="GET">
@@ -44,12 +43,8 @@
 
 <script src="/public/js/hideHeroFoot.js"></script>
 <script src="/public/js/showBreadcrumb.js"></script>
-<script src="/public/js/showDashboard.js"></script>
-<script src="/public/js/showReport.js"></script>
 <script>
   setTimeout(() => hideHeroFoot(), 100);
   setTimeout(() => showBreadcrumb(), 100);
-  setTimeout(() => showDashboard(), 100);
-  setTimeout(() => showReport(), 100);
 </script>
 <%- include('../../partials/footer') %>

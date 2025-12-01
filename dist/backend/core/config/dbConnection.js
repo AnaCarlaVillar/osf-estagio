@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config({ override: true });
 import mysql from 'mysql2/promise';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -18,7 +20,7 @@ const pool = mysql.createPool({
     try {
         const conn = await pool.getConnection();
         conn.release();
-        console.log('│\x1b[0m    •\x1b[93m', DB_NAME, '\x1b[0m                                           \x1b[90m│');
+        console.log('│\x1b[0m    •\x1b[93m', DB_NAME, '\x1b[0m                                         \x1b[90m│');
         console.log('│                                                             │');
         console.log('╰─────────────────────────────────────────────────────────────╯\x1b[0m\n');
     }

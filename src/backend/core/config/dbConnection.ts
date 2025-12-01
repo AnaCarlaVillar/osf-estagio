@@ -26,7 +26,7 @@ const pool: Pool = mysql.createPool({
     const conn = await pool.getConnection();
     conn.release();
 
-    console.log('│\x1b[0m    •\x1b[93m', DB_NAME ,'\x1b[0m                                           \x1b[90m│');
+    console.log('│\x1b[0m    •\x1b[93m', DB_NAME ,'\x1b[0m                                         \x1b[90m│');
     console.log('│                                                             │');
     console.log('╰─────────────────────────────────────────────────────────────╯\x1b[0m\n');
 

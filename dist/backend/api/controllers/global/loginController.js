@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import * as model from "../../models/registerUsuarioModel.js";
 import * as funcionarioLoginModel from "../../models/funcionarioLoginModel.js";
+import { generateUserToken } from "../../../core/utils/token.js";
 const newPath = "pages/auth/login/index";
 export const page = (req, res) => {
     res.render(newPath, { page: "login", title: "Login" });
@@ -18,8 +19,9 @@ export const login = async (req, res) => {
             throw new Error("\x1b[0mUsuário bloqueado");
         const cargoResult = await funcionarioLoginModel.getCargo(user.id);
         const cargo = cargoResult?.cargo ?? null;
+        const token = generateUserToken({ id: user.id, cargo });
         console.log(`✅ - Login: \x1b[92m${email}\x1b[0m, \x1b[92m${user.senha}\x1b[0m, \x1b[92m${cargo}\x1b[0m\n`);
-        return res.redirect("/home");
+        return res.redirect(`/home/${token}`);
     }
     catch (err) {
         console.error("❌ - Login: \x1b[31m$", err, "\x1b[0m\n");

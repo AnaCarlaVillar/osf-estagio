@@ -17,15 +17,15 @@ declare global {
 
 export default async function auth(req: Request, res: Response, next: NextFunction) {
   try {
-    const token = req.params.token; 
+    const token = req.params.token || req.headers.authorization?.split(" ")[1];
     if (!token) return res.status(401).send("Token não fornecido");
 
-    const decoded = jwt.verify(token, SECRET!) as unknown as { id: number };
+    const decoded = jwt.verify(token, SECRET!) as { id: number; cargo?: string };
 
     const user = await model.findById(decoded.id);
     if (!user) return res.status(401).send("Token inválido");
 
-    req.user = user;
+    req.user = { id: user.id, cargo: decoded.cargo ?? null };
 
     next();
   } catch (err) {
