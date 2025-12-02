@@ -18,7 +18,8 @@ export const register = async (req, res) => {
         if (!user)
             return res.status(500).send("Erro ao recuperar usuário registrado.");
         console.log(`✅ - Register: \x1b[92m${email}\x1b[0m, \x1b[92m${hash}\x1b[0m\n`);
-        const token = generateUserToken(user.id);
+        const cargo = user.cargo ?? null;
+        const token = generateUserToken({ id: user.id, cargo });
         return res.redirect(`/home/${token}`);
     }
     catch (err) {

@@ -23,7 +23,7 @@ As Linguagens de programação com quais trabalhamos são `JavaScript` e `TypeSc
 - `dotenv`
 - `ejs`
 - `express`
-- `jcalendar.js`
+- `fullcalendar` (web)
 - `jwt`
 - `mysql2`
 - `nodemon`

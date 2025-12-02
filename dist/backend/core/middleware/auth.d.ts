@@ -2,11 +2,7 @@ import { Request, Response, NextFunction } from "express";
 declare global {
     namespace Express {
         interface Request {
-            user?: {
-                id: number | string;
-                cargo?: string | null;
-                [key: string]: any;
-            };
+            user?: any;
         }
     }
 }
