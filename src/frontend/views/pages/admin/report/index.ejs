@@ -12,7 +12,7 @@
               Relatório de Serviços
             </p>
           </article>
-          <a href="/files/manual.pdf" download>
+          <form action="/serviceList-report/<%= token %>" method="GET">
             <button class="button px-6 is-fullwidth">
               <span class="icon">
                 <i
@@ -22,7 +22,7 @@
               <p>Download</p>
               <p></p>
             </button>
-          </a>
+          </form>
         </div>
       </div>
       <div
@@ -34,7 +34,7 @@
               Relatório de Usuários
             </p>
           </article>
-          <a href="/files/manual.pdf" download>
+          <form action="/userList-report/<%= token %>" method="GET">
             <button class="button px-6 is-fullwidth">
               <span class="icon">
                 <i
@@ -44,7 +44,7 @@
               <p>Download</p>
               <p></p>
             </button>
-          </a>
+          </form>
         </div>
       </div>
     </div>

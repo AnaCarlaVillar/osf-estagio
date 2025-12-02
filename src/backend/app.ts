@@ -18,6 +18,8 @@ import team from "./api/routes/global/teamRoute.js";
 import booking from "./api/routes/global/bookingRoute.js";
 import confirm from "./api/routes/global/confirmRoute.js";
 import bookingReport from "./api/routes/report/bookingRoute_report.js";
+import serviceListReport from "./api/routes/report/serviceListRoute_report.js";
+import userlistReport from "./api/routes/report/userListRoute_report.js";
 
 const app = express();
 
@@ -60,5 +62,7 @@ app.use('/', team);
 app.use('/', booking);
 app.use('/', confirm);
 app.use('/', bookingReport);
+app.use('/', serviceListReport);
+app.use('/', userlistReport);
 
 export default app;
