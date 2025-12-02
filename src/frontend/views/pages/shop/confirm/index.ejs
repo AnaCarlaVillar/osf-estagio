@@ -12,7 +12,10 @@
               Relatório de Agendamento
             </p>
           </article>
-          <a href="/files/manual.pdf" download>
+          <form action="/booking-report/<%= token %>" method="GET">
+            <input type="hidden" name="service" value="<%= service %>">
+            <input type="hidden" name="barber" value="<%= barber %>">
+            <input type="hidden" name="datetime" value="<%= datetime %>">
             <button class="button px-6 is-fullwidth">
               <span class="icon">
                 <i
@@ -22,15 +25,15 @@
               <p>Download</p>
               <p></p>
             </button>
-          </a>
+          </form>
         </div>
       </div>
       <div class="divider has-background-danger m-6"></div>
       <div
         class="column is-flex is-justify-content-center is-align-items-center is-narrow"
       >
-        <form action="/confirm/<%= token %>" method="POST">
-          <button class="button is-success p-4 has-text-weight-extrabold">Confirmar Agendamento</button>
+        <form action="/home/<%= token %>" method="GET">
+          <button class="button is-success p-5 has-text-weight-bold has-text-white is-size-3">Confirmar Agendamento</button>
         </form>
       </div>
     </div>

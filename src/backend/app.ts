@@ -17,6 +17,7 @@ import pricing from "./api/routes/global/pricingRoute.js";
 import team from "./api/routes/global/teamRoute.js";
 import booking from "./api/routes/global/bookingRoute.js";
 import confirm from "./api/routes/global/confirmRoute.js";
+import bookingReport from "./api/routes/report/bookingRoute_report.js";
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use('/', employees);
 app.use('/', pricing);
 app.use('/', team);
 app.use('/', booking);
-app.use('/', confirm)
+app.use('/', confirm);
+app.use('/', bookingReport);
 
 export default app;

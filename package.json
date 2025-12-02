@@ -50,6 +50,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/livereload": "^0.9.5",
     "@types/node": "^24.10.1",
+    "@types/pdfkit": "^0.17.4",
     "connect-livereload": "^0.6.1",
     "eslint": "^9.38.0",
     "globals": "^16.4.0",

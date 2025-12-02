@@ -2,9 +2,8 @@
 %>
 <main class="section is-flex-grow-1">
   <p class="title has-text-centered has-text-info">Escolha seu Barbeiro</p>
-
-  <!-- Formulário único -->
   <form action="/booking/<%= token %>" method="GET">
+    <input type="hidden" name="service" value="<%= service %>">
     <div class="columns is-centered is-multiline" id="category-container">
       <div
         class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
@@ -17,12 +16,12 @@
               alt="Barbeiro 1"
             />
           </figure>
-          <p class="title is-4 has-text-centered">Barbeiro 1</p>
+          <p class="title is-4 has-text-centered">Luiz</p>
           <p class="subtitle is-6">Especialista em cortes modernos</p>
           <button
             type="submit"
-            name="barbeiro"
-            value="Barbeiro 1"
+            name="barber"
+            value="Luiz"
             class="button is-success is-fullwidth"
           >
             Selecionar
@@ -41,12 +40,12 @@
               alt="Barbeiro 2"
             />
           </figure>
-          <p class="title is-4 has-text-centered">Barbeiro 2</p>
+          <p class="title is-4 has-text-centered">Jonathan</p>
           <p class="subtitle is-6">Especialista em barba e bigode</p>
           <button
             type="submit"
-            name="barbeiro"
-            value="Barbeiro 2"
+            name="barber"
+            value="Jonathan"
             class="button is-success is-fullwidth"
           >
             Selecionar
@@ -65,12 +64,12 @@
               alt="Barbeiro 3"
             />
           </figure>
-          <p class="title is-4 has-text-centered">Barbeiro 3</p>
+          <p class="title is-4 has-text-centered">Gabriel</p>
           <p class="subtitle is-6">Especialista em cortes clássicos</p>
           <button
             type="submit"
-            name="barbeiro"
-            value="Barbeiro 3"
+            name="barber"
+            value="Gabriel"
             class="button is-success is-fullwidth"
           >
             Selecionar

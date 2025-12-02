@@ -6,7 +6,12 @@
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         <div class="box">
-          <div id="calendar"></div>
+          <form action="/confirm/<%= token %>" method="GET">
+            <input type="hidden" name="service" value="<%= service %>">
+            <input type="hidden" name="barber" value="<%= barber %>">
+            <input type="hidden" name="datetime" id="datetime">
+            <div id="calendar"></div>
+          </form>
         </div>
       </div>
     </div>
@@ -54,7 +59,8 @@
 
         const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}`;
 
-        window.location.href = `/confirm/<%= token %>`;
+        document.getElementById("datetime").value = formattedDate;
+        document.querySelector("form").submit();
       },
     });
     calendar.render();
