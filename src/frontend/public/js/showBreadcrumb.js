@@ -10,36 +10,32 @@ function showBreadcrumb() {
 
   let currentIndex = -1;
 
-  // Find the current breadcrumb index by matching the href
   links.forEach((link, index) => {
     if (link.getAttribute("href") === currentPath) {
       currentIndex = index;
     }
   });
 
-  // If no match, assume last item is current
   if (currentIndex === -1) {
-    currentIndex = links.length - 1;
+    currentIndex = links.length - 2;
   }
 
   links.forEach((link, index) => {
-    // ---- PAST PAGES (clickable) ----
+
     if (index < currentIndex) {
       link.classList.add("has-text-white", "has-text-weight-bold");
       link.style.pointerEvents = "auto";
       return;
     }
 
-    // ---- CURRENT PAGE ----
     if (index === currentIndex) {
       link.classList.remove("has-text-white");
-      link.classList.add("has-text-info-light", "has-text-weight-bold");
+      link.classList.add("has-text-warning-light", "has-text-weight-bold");
       link.removeAttribute("href");
       link.style.cursor = "default";
       return;
     }
 
-    // ---- FUTURE PAGES (disabled) ----
     if (index > currentIndex) {
       link.classList.remove("has-text-white");
       link.classList.add("has-text-black");
