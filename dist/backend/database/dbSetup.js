@@ -1,3 +1,4 @@
+// dbSetup.ts
 import fs from 'fs';
 import path from 'path';
 import mysql from 'mysql2/promise';
@@ -52,7 +53,6 @@ async function runSqlFiles(folder) {
         await createDatabase();
         console.log(`│\x1b[0m    • \x1b[38;2;255;170;170mMigrations\x1b[0m:                                            \x1b[90m│`);
         await runSqlFiles(path.join(__dirname, 'migrations'));
-        // dynamic import for ESM
         const { adminSeed } = await import('./seeds/adminSeed.js');
         console.log(`│\x1b[0m    • \x1b[38;2;255;170;170mSeeds\x1b[0m:                                                 \x1b[90m│`);
         await runSqlFiles(path.join(__dirname, 'seeds'));

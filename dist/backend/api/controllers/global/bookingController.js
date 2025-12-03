@@ -1,3 +1,4 @@
+// bookingController.ts
 const newPath = "pages/shop/booking/index";
 export const page = (req, res) => {
     const token = req.params.token;

@@ -1,3 +1,4 @@
+// homeController.ts
 const newPath = "pages/home/index";
 export const page = (req, res) => {
     const token = req.params.token;

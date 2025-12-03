@@ -1,1 +1,1 @@
-{"version":3,"file":"static.d.ts","sourceRoot":"","sources":["../../../../src/backend/core/middleware/static.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,SAAS,CAAC;yBAQlB,KAAK,OAAO;AAA5B,wBAEE"}
+{"version":3,"file":"static.d.ts","sourceRoot":"","sources":["../../../../src/backend/core/middleware/static.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,OAAO,EAAE,MAAM,SAAS,CAAC;yBAQlB,KAAK,OAAO;AAA5B,wBAEE"}

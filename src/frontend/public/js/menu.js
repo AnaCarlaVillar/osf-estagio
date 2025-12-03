@@ -1,3 +1,5 @@
+// menu.js
+
 function ajustarMenu() {
   const dropdowns = document.querySelectorAll('.navbar-item.has-dropdown');
 

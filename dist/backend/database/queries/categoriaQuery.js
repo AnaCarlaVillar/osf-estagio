@@ -1,3 +1,4 @@
+// categoriaQuery.ts
 export const getAll = `
     SELECT 
       id,

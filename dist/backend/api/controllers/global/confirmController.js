@@ -1,3 +1,4 @@
+// confirmController.ts
 const newPath = "pages/shop/confirm/index";
 export const page = (req, res) => {
     const token = req.params.token;

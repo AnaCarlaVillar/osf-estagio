@@ -1,1 +1,1 @@
-{"version":3,"file":"servicoQuery.d.ts","sourceRoot":"","sources":["../../../../src/backend/database/queries/servicoQuery.ts"],"names":[],"mappings":"AAAA,eAAO,MAAM,MAAM,4MAUhB,CAAC;AAEJ,eAAO,MAAM,OAAO,gOAWjB,CAAC"}
+{"version":3,"file":"servicoQuery.d.ts","sourceRoot":"","sources":["../../../../src/backend/database/queries/servicoQuery.ts"],"names":[],"mappings":"AAEA,eAAO,MAAM,MAAM,4MAUhB,CAAC;AAEJ,eAAO,MAAM,OAAO,gOAWjB,CAAC"}

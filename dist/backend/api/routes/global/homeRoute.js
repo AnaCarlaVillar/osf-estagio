@@ -1,3 +1,4 @@
+// homeRoute.ts
 import express from "express";
 import { page } from "../../controllers/global/homeController.js";
 import auth from "../../../core/middleware/auth.js";

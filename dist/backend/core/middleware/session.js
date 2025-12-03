@@ -1,3 +1,4 @@
+// session.ts
 import jwt from "jsonwebtoken";
 const SECRET = process.env.URL_TOKEN_SECRET;
 if (!SECRET)

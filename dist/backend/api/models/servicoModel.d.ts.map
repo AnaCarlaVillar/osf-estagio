@@ -1,1 +1,1 @@
-{"version":3,"file":"servicoModel.d.ts","sourceRoot":"","sources":["../../../../src/backend/api/models/servicoModel.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,aAAa,EAAE,MAAM,QAAQ,CAAC;AAEvC,wBAAsB,MAAM,6BAG3B;AAED,wBAAsB,OAAO,CAAC,EAAE,EAAE,MAAM,sCAGvC"}
+{"version":3,"file":"servicoModel.d.ts","sourceRoot":"","sources":["../../../../src/backend/api/models/servicoModel.ts"],"names":[],"mappings":"AAIA,OAAO,EAAE,aAAa,EAAE,MAAM,QAAQ,CAAC;AAEvC,wBAAsB,MAAM,6BAG3B;AAED,wBAAsB,OAAO,CAAC,EAAE,EAAE,MAAM,sCAGvC"}

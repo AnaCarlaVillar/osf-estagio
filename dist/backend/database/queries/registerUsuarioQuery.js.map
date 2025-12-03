@@ -1,1 +1,1 @@
-{"version":3,"file":"registerUsuarioQuery.js","sourceRoot":"","sources":["../../../../src/backend/database/queries/registerUsuarioQuery.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,YAAY,GAAG;;;GAGzB,CAAC;AACJ,MAAM,CAAC,MAAM,aAAa,GAAG;;;GAG1B,CAAC"}
+{"version":3,"file":"registerUsuarioQuery.js","sourceRoot":"","sources":["../../../../src/backend/database/queries/registerUsuarioQuery.ts"],"names":[],"mappings":"AAAA,0BAA0B;AAE1B,MAAM,CAAC,MAAM,YAAY,GAAG;;;GAGzB,CAAC;AACJ,MAAM,CAAC,MAAM,aAAa,GAAG;;;GAG1B,CAAC"}

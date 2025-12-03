@@ -1,3 +1,4 @@
+// start.ts
 import dotenv from "dotenv";
 dotenv.config({ override: true });
 process.env.DOTENV_LOG = "false";

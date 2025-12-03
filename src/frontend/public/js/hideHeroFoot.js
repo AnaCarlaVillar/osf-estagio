@@ -1,3 +1,5 @@
+// hideHeroFoot.js
+
 function hideHeroFoot() {
   const heroFoot = document.querySelector(".hero-foot");
   if (heroFoot) {

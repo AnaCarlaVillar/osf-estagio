@@ -1,3 +1,5 @@
+// registerUsuarioModel.ts
+
 import db from '../../core/config/dbConnection.js';
 import { findByEmail as qEmail } from '../../database/queries/findByEmailQuery.js';
 import { insertPessoa, insertUsuario } from '../../database/queries/registerUsuarioQuery.js';

@@ -1,3 +1,5 @@
+// servicesController.ts
+
 import { Request, Response } from 'express';
 
 const newPath = "pages/admin/components/services/index";

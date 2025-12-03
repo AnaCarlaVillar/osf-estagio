@@ -1,3 +1,5 @@
+// reportController.ts
+
 import { Request, Response } from 'express';
 
 const newPath = "pages/admin/report/index";

@@ -1,3 +1,4 @@
+// bookingReport.ts
 import PDFDocument from "pdfkit";
 export function generateBookingReport(bookings) {
     const doc = new PDFDocument({ margin: 50 });

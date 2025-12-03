@@ -1,3 +1,5 @@
+// employeesController.ts
+
 import { Request, Response } from 'express';
 
 const newPath = "pages/admin/components/employees/index";

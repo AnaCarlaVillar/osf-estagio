@@ -1,3 +1,5 @@
+// showBreadCrumb.js
+
 function showBreadcrumb() {
   const breadcrumb = document.querySelector("#breadcrumb");
 

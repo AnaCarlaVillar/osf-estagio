@@ -1,3 +1,4 @@
+// bookingRoute_report.ts
 import express from "express";
 import { findById } from "../../models/usuarioModel.js";
 import { generateBookingReport } from "../../../database/reports/bookingReport.js";
@@ -9,7 +10,7 @@ router.get("/booking-report/:token", auth, async (req, res) => {
         if (!service || !barber || !datetime) {
             return res.status(400).send("Dados de agendamento incompletos.");
         }
-        const raw = String(datetime); // ex.: "2025-02-10T09:00"
+        const raw = String(datetime);
         const [datePart, timePart] = raw.split("T");
         if (!datePart || !timePart) {
             return res.status(400).send("Formato de datetime inválido.");

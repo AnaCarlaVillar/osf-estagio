@@ -1,1 +1,1 @@
-{"version":3,"file":"servicesRoute.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/routes/admin/servicesRoute.ts"],"names":[],"mappings":"AAIA,QAAA,MAAM,MAAM,4CAAmB,CAAC;AAIhC,eAAe,MAAM,CAAC"}
+{"version":3,"file":"servicesRoute.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/routes/admin/servicesRoute.ts"],"names":[],"mappings":"AAMA,QAAA,MAAM,MAAM,4CAAmB,CAAC;AAIhC,eAAe,MAAM,CAAC"}

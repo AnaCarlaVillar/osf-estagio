@@ -1,3 +1,5 @@
+// usuarioQuery.ts
+
 export const getAll = `
     SELECT 
       u.id AS usuario_id,

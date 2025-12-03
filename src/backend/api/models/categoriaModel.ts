@@ -1,3 +1,5 @@
+// categoriaModel.ts
+
 import db from "../../core/config/dbConnection.js";
 import { getAll as getAllQuery, getById as getByIdQuery } from "../../database/queries/categoriaQuery.js";
 import { RowDataPacket } from "mysql2";

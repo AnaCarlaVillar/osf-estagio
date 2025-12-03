@@ -1,3 +1,4 @@
+// employeesController.ts
 const newPath = "pages/admin/components/employees/index";
 export const page = (req, res) => {
     const token = req.params.token;

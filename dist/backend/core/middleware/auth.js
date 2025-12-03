@@ -1,3 +1,4 @@
+// auth.ts
 import jwt from "jsonwebtoken";
 import * as model from "../../api/models/usuarioModel.js";
 const SECRET = process.env.URL_TOKEN_SECRET;

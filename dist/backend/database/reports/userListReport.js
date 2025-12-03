@@ -1,3 +1,4 @@
+// userListReport.ts
 import PDFDocument from "pdfkit";
 export function generateUserListReport(users) {
     const doc = new PDFDocument({ margin: 50 });

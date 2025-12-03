@@ -1,3 +1,4 @@
+// categoryRoute.ts
 import express from "express";
 import { getAll, getById, register } from "../../controllers/admin/categoryController.js";
 import auth from "../../../core/middleware/auth.js";

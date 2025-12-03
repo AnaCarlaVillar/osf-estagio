@@ -1,1 +1,1 @@
-{"version":3,"file":"funcionarioLoginQuery.js","sourceRoot":"","sources":["../../../../src/backend/database/queries/funcionarioLoginQuery.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,QAAQ,GAAG;;;;;GAKrB,CAAC"}
+{"version":3,"file":"funcionarioLoginQuery.js","sourceRoot":"","sources":["../../../../src/backend/database/queries/funcionarioLoginQuery.ts"],"names":[],"mappings":"AAAA,2BAA2B;AAE3B,MAAM,CAAC,MAAM,QAAQ,GAAG;;;;;GAKrB,CAAC"}

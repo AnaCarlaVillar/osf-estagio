@@ -1,3 +1,5 @@
+// registerController.ts
+
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import * as model from "../../models/registerUsuarioModel.js";

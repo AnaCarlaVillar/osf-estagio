@@ -1,3 +1,4 @@
+// serviceController.ts
 import * as model from '../../models/servicoModel.js';
 import * as registerModel from '../../models/registerServicoModel.js';
 import { generateUserToken } from "../../../core/utils/token.js";

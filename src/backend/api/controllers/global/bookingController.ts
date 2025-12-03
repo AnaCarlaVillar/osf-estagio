@@ -1,3 +1,5 @@
+// bookingController.ts
+
 import { Request, Response } from 'express';
 
 const newPath = "pages/shop/booking/index";

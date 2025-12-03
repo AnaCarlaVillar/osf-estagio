@@ -1,3 +1,5 @@
+// homeController.ts
+
 import { Request, Response } from "express";
 
 const newPath = "pages/home/index";

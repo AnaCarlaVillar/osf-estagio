@@ -1,3 +1,5 @@
+// registerCategoriaModel.ts
+
 import db from "../../core/config/dbConnection.js";
 import { insertCategoria as query } from "../../database/queries/registerCategoriaQuery.js";
 import { ResultSetHeader } from "mysql2";

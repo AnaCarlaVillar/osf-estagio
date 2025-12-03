@@ -1,7 +1,7 @@
 <h1 align="center">Documentação do Projeto</h1>
 
 <p align="center">
-  <img src="src/frontend/public/images/logo.png" alt="Logo" width="320">
+  <img src="src/frontend/public/images/logo.png" alt="Logo" width="240">
 </p>
 
 ## Guia

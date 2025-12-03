@@ -1,3 +1,5 @@
+// categoryController.ts
+
 import { Request, Response } from "express";
 import * as model from "../../models/categoriaModel.js";
 import * as registerModel from "../../models/registerCategoriaModel.js";

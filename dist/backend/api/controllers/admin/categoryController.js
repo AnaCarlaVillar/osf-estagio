@@ -1,3 +1,4 @@
+// categoryController.ts
 import * as model from "../../models/categoriaModel.js";
 import * as registerModel from "../../models/registerCategoriaModel.js";
 import { generateUserToken } from "../../../core/utils/token.js";

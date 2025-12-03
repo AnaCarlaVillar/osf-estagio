@@ -1,1 +1,1 @@
-{"version":3,"file":"bookingRoute_report.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/routes/report/bookingRoute_report.ts"],"names":[],"mappings":"AAKA,QAAA,MAAM,MAAM,4CAAmB,CAAC;AAkEhC,eAAe,MAAM,CAAC"}
+{"version":3,"file":"bookingRoute_report.d.ts","sourceRoot":"","sources":["../../../../../src/backend/api/routes/report/bookingRoute_report.ts"],"names":[],"mappings":"AAOA,QAAA,MAAM,MAAM,4CAAmB,CAAC;AAkEhC,eAAe,MAAM,CAAC"}

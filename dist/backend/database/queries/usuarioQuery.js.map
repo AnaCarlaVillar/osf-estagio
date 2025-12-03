@@ -1,1 +1,1 @@
-{"version":3,"file":"usuarioQuery.js","sourceRoot":"","sources":["../../../../src/backend/database/queries/usuarioQuery.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,MAAM,GAAG;;;;;;;;;;;GAWnB,CAAC"}
+{"version":3,"file":"usuarioQuery.js","sourceRoot":"","sources":["../../../../src/backend/database/queries/usuarioQuery.ts"],"names":[],"mappings":"AAAA,kBAAkB;AAElB,MAAM,CAAC,MAAM,MAAM,GAAG;;;;;;;;;;;GAWnB,CAAC"}

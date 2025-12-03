@@ -1,3 +1,4 @@
+// reportController.ts
 const newPath = "pages/admin/report/index";
 export const page = (req, res) => {
     const token = req.params.token;

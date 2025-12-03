@@ -1,3 +1,4 @@
+// funcionarioLoginQuery.ts
 export const getCargo = `
     SELECT cargo
     FROM funcionario

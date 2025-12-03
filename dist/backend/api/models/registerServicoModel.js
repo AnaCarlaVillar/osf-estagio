@@ -1,3 +1,4 @@
+// registerServicoModel.ts
 import db from '../../core/config/dbConnection.js';
 import { insertServico as query } from '../../database/queries/registerServicoQuery.js';
 export async function registerNewService(categoriaNome, nome, descricao, duracao, preco) {

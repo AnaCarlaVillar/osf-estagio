@@ -1,3 +1,5 @@
+// teamController.ts
+
 import { Request, Response } from 'express';
 
 const newPath = "pages/shop/team/index";

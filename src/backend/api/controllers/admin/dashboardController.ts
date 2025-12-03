@@ -1,3 +1,5 @@
+// dashboardController.ts
+
 import { Request, Response } from 'express';
 
 const newPath = "pages/admin/dashboard/index";

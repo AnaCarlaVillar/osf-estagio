@@ -1,3 +1,5 @@
+// funcionarioLoginModel.ts
+
 import db from '../../core/config/dbConnection.js';
 import { getCargo as query } from '../../database/queries/funcionarioLoginQuery.js';
 import { RowDataPacket } from 'mysql2';

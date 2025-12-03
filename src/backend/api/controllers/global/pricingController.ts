@@ -1,3 +1,5 @@
+// pricingController.ts
+
 import { Request, Response } from 'express';
 
 const newPath = "pages/shop/pricing/index";

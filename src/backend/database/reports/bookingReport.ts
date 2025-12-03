@@ -1,3 +1,5 @@
+// bookingReport.ts
+
 import PDFDocument from "pdfkit";
 
 export function generateBookingReport(bookings: any[]) {

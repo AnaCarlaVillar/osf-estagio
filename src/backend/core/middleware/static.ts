@@ -1,3 +1,5 @@
+// static.ts
+
 import { Express } from "express";
 import path from "path";
 import express from "express";

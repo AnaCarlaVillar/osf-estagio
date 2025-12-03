@@ -1,3 +1,4 @@
+// registerUsuarioQuery.ts
 export const insertPessoa = `
     INSERT INTO pessoa (nome)
     VALUES (?);

@@ -1,3 +1,4 @@
+// registerRoute.ts
 import express from "express";
 import { page, register } from "../../controllers/global/registerController.js";
 const router = express.Router();

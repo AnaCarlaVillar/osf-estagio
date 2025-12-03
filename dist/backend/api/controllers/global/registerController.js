@@ -1,3 +1,4 @@
+// registerController.ts
 import bcrypt from "bcryptjs";
 import * as model from "../../models/registerUsuarioModel.js";
 import { generateUserToken } from "../../../core/utils/token.js";

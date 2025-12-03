@@ -1,3 +1,4 @@
+// pricingController.ts
 const newPath = "pages/shop/pricing/index";
 export const page = (req, res) => {
     const token = req.params.token;

@@ -1,3 +1,5 @@
+// usuarioModel.ts
+
 import db from '../../core/config/dbConnection.js';
 import { findById as qFindById } from '../../database/queries/findByIdQuery.js';
 import { getAll } from '../../database/queries/usuarioQuery.js';

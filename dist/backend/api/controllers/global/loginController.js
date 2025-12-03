@@ -1,3 +1,4 @@
+// loginController.ts
 import bcrypt from "bcryptjs";
 import * as model from "../../models/registerUsuarioModel.js";
 import * as funcionarioLoginModel from "../../models/funcionarioLoginModel.js";

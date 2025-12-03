@@ -1,3 +1,4 @@
+// servicoQuery.ts
 export const getAll = `
     SELECT 
       s.id,
