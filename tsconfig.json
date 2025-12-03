@@ -6,22 +6,19 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "es2020",
+    "moduleDetection": "force",
 
     "types": ["node"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
 
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
     "strict": true,
-    "jsx": "react-jsx",
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
 
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowJs": false
   },
   "include": ["src/**/*"]
 }

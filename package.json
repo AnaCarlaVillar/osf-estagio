@@ -2,13 +2,14 @@
   "name": "osf",
   "version": "1.0.0",
   "description": "`http://localhost/phpmyadmin`",
-  "main": "index.js",
+  "main": "dist/src/backend/start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --loader ts-node/esm src/backend/start.ts",
+    "build": "tsc",
+    "start": "node dist/src/backend/start.js",
     "dev": "nodemon --watch src/**/*.ts --exec node --loader ts-node/esm src/backend/start.ts",
-    "db:setup": "node --loader ts-node/esm src/backend/database/dbSetup.js",
-    "db:drop": "node --loader ts-node/esm src/backend/database/dbDrop.js"
+    "db:setup": "node --loader ts-node/esm src/backend/database/dbSetup.ts",
+    "db:drop": "node --loader ts-node/esm src/backend/database/dbDrop.ts"
   },
   "repository": {
     "type": "git",
