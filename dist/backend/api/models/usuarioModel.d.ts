@@ -6,6 +6,8 @@ export interface UsuarioRow extends RowDataPacket {
     senha: string;
     ativo: number;
     historicoAtendimentos?: string;
+    nome?: string;
 }
 export declare function findById(id: number): Promise<UsuarioRow | null>;
+export declare function getAllUsers(): Promise<UsuarioRow[]>;
 //# sourceMappingURL=usuarioModel.d.ts.map

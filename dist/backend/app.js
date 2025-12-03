@@ -1,6 +1,7 @@
 import express from 'express';
 import path from "path";
 import { fileURLToPath } from "url";
+import rateLimit from 'express-rate-limit';
 import setupStatic from "./core/middleware/static.js";
 import login from "./api/routes/global/loginRoute.js";
 import register from "./api/routes/global/registerRoute.js";
@@ -16,7 +17,17 @@ import team from "./api/routes/global/teamRoute.js";
 import booking from "./api/routes/global/bookingRoute.js";
 import confirm from "./api/routes/global/confirmRoute.js";
 import bookingReport from "./api/routes/report/bookingRoute_report.js";
+import serviceListReport from "./api/routes/report/serviceListRoute_report.js";
+import userlistReport from "./api/routes/report/userListRoute_report.js";
 const app = express();
+const globalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 100, // máximo 100 requisições por IP
+    message: 'Muitas requisições, tente novamente mais tarde.',
+    standardHeaders: true, // retorna limites nos headers
+    legacyHeaders: false
+});
+app.use(globalLimiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
@@ -49,5 +60,7 @@ app.use('/', team);
 app.use('/', booking);
 app.use('/', confirm);
 app.use('/', bookingReport);
+app.use('/', serviceListReport);
+app.use('/', userlistReport);
 export default app;
 //# sourceMappingURL=app.js.map

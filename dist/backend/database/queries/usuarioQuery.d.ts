@@ -1,0 +1,2 @@
+export declare const getAll = "\n    SELECT \n      u.id AS usuario_id,\n      u.email,\n      u.ativo,\n      u.historicoAtendimentos,\n      p.id AS pessoa_id,\n      p.nome,\n      p.foto\n    FROM usuario u\n    JOIN pessoa p ON u.pessoa_id = p.id;\n  ";
+//# sourceMappingURL=usuarioQuery.d.ts.map

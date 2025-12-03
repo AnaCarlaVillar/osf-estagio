@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="navbar-brand">
-        <a class="navbar-item" href="/home">
+        <a class="navbar-item" href="<%= typeof token !== 'undefined' && token ? `/home/${token}` : 'javascript:void(0)' %>" >
           <figure class="image">
             <img src="/public/images/logo.png" />
           </figure>
@@ -54,7 +54,7 @@
       </div>
       <div id="navbarMenuHeroA" class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item has-text-white" href="/home">
+          <a class="navbar-item has-text-white" href="<%= typeof token !== 'undefined' && token ? `/home/${token}` : 'javascript:void(0)' %>" >
             <span class="icon-text">
               <span class="icon has-text-danger">
                 <i class="fas fa-home"></i>
@@ -85,25 +85,25 @@
     <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
       <ul>
         <li>
-          <a href="/home/<%= token %>" class="has-text-white has-text-weight-bold">Home</a>
+          <a href="<%= typeof token !== 'undefined' && token ? `/home/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold">Home</a>
         </li>
         <li>
-          <a href="/pricing/<%= token %>" class="has-text-white has-text-weight-bold"
+          <a href="<%= typeof token !== 'undefined' && token ? `/pricing/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
             >Serviços</a
           >
         </li>
         <li>
-          <a href="/team/<%= token %>" class="has-text-white has-text-weight-bold"
+          <a href="<%= typeof token !== 'undefined' && token ? `/team/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
             >Barbeiros</a
           >
         </li>
         <li>
-          <a href="/booking/<%= token %>" class="has-text-white has-text-weight-bold"
+          <a href="<%= typeof token !== 'undefined' && token ? `/booking/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
             >Horários</a
           >
         </li>
         <li>
-          <a href="/confirm/<%= token %>" class="has-text-white has-text-weight-bold"
+          <a href="<%= typeof token !== 'undefined' && token ? `/confirm/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
             >Agendar</a
           >
         </li>

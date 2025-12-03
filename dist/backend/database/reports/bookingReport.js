@@ -1,13 +1,11 @@
 import PDFDocument from "pdfkit";
 export function generateBookingReport(bookings) {
     const doc = new PDFDocument({ margin: 50 });
-    // Cabeçalho
     doc
         .fontSize(22)
         .fillColor("#000")
-        .text("Relatório de Agendamentos", { align: "center" })
+        .text("Relatório de Agendamento", { align: "center" })
         .moveDown(1);
-    // Data de geração
     const creationDate = new Date().toLocaleString("pt-BR", {
         dateStyle: "short",
         timeStyle: "short",
@@ -17,15 +15,13 @@ export function generateBookingReport(bookings) {
         .fillColor("#555")
         .text(`Gerado em: ${creationDate}`, { align: "right" })
         .moveDown(1);
-    // Linha separadora
-    doc
-        .moveTo(50, doc.y)
-        .lineTo(550, doc.y)
-        .strokeColor("#cccccc")
-        .stroke()
-        .moveDown(2);
-    // Conteúdo
-    bookings.forEach((b, index) => {
+    bookings.forEach((b) => {
+        doc
+            .moveTo(50, doc.y)
+            .lineTo(550, doc.y)
+            .strokeColor("#cccccc")
+            .stroke()
+            .moveDown(2);
         doc
             .fillColor("#000")
             .fontSize(13)
@@ -57,17 +53,24 @@ export function generateBookingReport(bookings) {
             .font("Helvetica-Bold")
             .text(b.horario)
             .font("Helvetica");
-        doc.moveDown(1);
-        // Separador entre registros (opcional)
-        if (index < bookings.length - 1) {
+        function addFooter() {
+            const bottom = doc.page.height - 50;
             doc
-                .moveTo(50, doc.y)
-                .lineTo(550, doc.y)
-                .strokeColor("#e0e0e0")
-                .stroke()
-                .moveDown(1.5);
+                .fontSize(10)
+                .fillColor("#555")
+                .text("© 2025 Osf Barbearia, Inc", 50, bottom - 15, {
+                align: "center",
+            });
         }
+        addFooter();
+        doc.moveDown(1);
     });
+    doc
+        .moveTo(50, doc.y)
+        .lineTo(550, doc.y)
+        .strokeColor("#cccccc")
+        .stroke()
+        .moveDown(2);
     return doc;
 }
 //# sourceMappingURL=bookingReport.js.map
