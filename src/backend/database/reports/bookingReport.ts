@@ -20,14 +20,14 @@ export function generateBookingReport(bookings: any[]) {
     .text(`Gerado em: ${creationDate}`, { align: "right" })
     .moveDown(1);
 
-  doc
-    .moveTo(50, doc.y)
-    .lineTo(550, doc.y)
-    .strokeColor("#cccccc")
-    .stroke()
-    .moveDown(2);
+  bookings.forEach((b) => {
+    doc
+      .moveTo(50, doc.y)
+      .lineTo(550, doc.y)
+      .strokeColor("#cccccc")
+      .stroke()
+      .moveDown(2);
 
-  bookings.forEach((b, index) => {
     doc
       .fillColor("#000")
       .fontSize(13)
@@ -78,6 +78,13 @@ export function generateBookingReport(bookings: any[]) {
 
     doc.moveDown(1);
   });
+
+    doc
+      .moveTo(50, doc.y)
+      .lineTo(550, doc.y)
+      .strokeColor("#cccccc")
+      .stroke()
+      .moveDown(2);
 
   return doc;
 }

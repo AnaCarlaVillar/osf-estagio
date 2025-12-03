@@ -1,6 +1,6 @@
 import PDFDocument from "pdfkit";
 
-export function generateBookingReport(services: any[]) {
+export function generateServiceListReport(services: any[]) {
   const doc = new PDFDocument({ margin: 50 });
 
   doc
@@ -20,14 +20,14 @@ export function generateBookingReport(services: any[]) {
     .text(`Gerado em: ${creationDate}`, { align: "right" })
     .moveDown(1);
 
-  doc
-    .moveTo(50, doc.y)
-    .lineTo(550, doc.y)
-    .strokeColor("#cccccc")
-    .stroke()
-    .moveDown(2);
+  services.forEach((s) => {
+    doc
+      .moveTo(50, doc.y)
+      .lineTo(550, doc.y)
+      .strokeColor("#cccccc")
+      .stroke()
+      .moveDown(2);
 
-  services.forEach((s, index) => {
     doc
       .fillColor("#000")
       .fontSize(13)
@@ -69,14 +69,6 @@ export function generateBookingReport(services: any[]) {
       .font("Helvetica")
       .moveDown(0.8);
 
-    if (index < services.length - 1) {
-      doc
-        .moveTo(50, doc.y)
-        .lineTo(550, doc.y)
-        .stroke()
-        .moveDown(1);
-    }
-
     function addFooter() {
       const bottom = doc.page.height - 50;
       doc
@@ -91,6 +83,13 @@ export function generateBookingReport(services: any[]) {
 
     doc.moveDown(1);
   });
+
+    doc
+      .moveTo(50, doc.y)
+      .lineTo(550, doc.y)
+      .strokeColor("#cccccc")
+      .stroke()
+      .moveDown(2);
 
   return doc;
 }

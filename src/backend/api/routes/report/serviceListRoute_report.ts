@@ -1,6 +1,6 @@
 import express from "express";
 import { getAll } from "../../models/servicoModel.js";
-import { generateBookingReport } from "../../../database/reports/serviceListReport.js";
+import { generateServiceListReport } from "../../../database/reports/serviceListReport.js";
 import auth from "../../../core/middleware/auth.js";
 
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get("/serviceList-report/:token", auth, async (req, res) => {
   try {
     const serviceList = await getAll();
 
-    const doc = generateBookingReport(serviceList);
+    const doc = generateServiceListReport(serviceList);
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", "attachment; filename=serviceList-report.pdf");

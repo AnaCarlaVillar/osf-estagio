@@ -1,12 +1,12 @@
 import PDFDocument from "pdfkit";
 
-export function generateBookingReport(bookings: any[]) {
+export function generateUserListReport(users: any[]) {
   const doc = new PDFDocument({ margin: 50 });
 
   doc
     .fontSize(22)
     .fillColor("#000")
-    .text("Relatório de Agendamento", { align: "center" })
+    .text("Relatório de Usuários", { align: "center" })
     .moveDown(1);
 
   const creationDate = new Date().toLocaleString("pt-BR", {
@@ -20,49 +20,54 @@ export function generateBookingReport(bookings: any[]) {
     .text(`Gerado em: ${creationDate}`, { align: "right" })
     .moveDown(1);
 
-  doc
-    .moveTo(50, doc.y)
-    .lineTo(550, doc.y)
-    .strokeColor("#cccccc")
-    .stroke()
-    .moveDown(2);
+  users.forEach((u) => {
+    doc
+      .moveTo(50, doc.y)
+      .lineTo(550, doc.y)
+      .strokeColor("#cccccc")
+      .stroke()
+      .moveDown(2);
 
-  bookings.forEach((b, index) => {
     doc
       .fillColor("#000")
       .fontSize(13)
-      .text(`Cliente: `, { continued: true })
+      .text("Id Pessoa: ", { continued: true })
       .font("Helvetica-Bold")
-      .text(b.cliente)
-      .font("Helvetica");
+      .text(u.pessoa_id)
+      .font("Helvetica")
+      .moveDown(0.3);
 
     doc
       .fontSize(13)
-      .text(`Serviço: `, { continued: true })
+      .text("Id Usuário: ", { continued: true })
       .font("Helvetica-Bold")
-      .text(b.servico)
-      .font("Helvetica");
+      .text(u.usuario_id)
+      .font("Helvetica")
+      .moveDown(0.3);
 
     doc
       .fontSize(13)
-      .text(`Barbeiro: `, { continued: true })
+      .text("Nome: ", { continued: true })
       .font("Helvetica-Bold")
-      .text(b.barbeiro)
-      .font("Helvetica");
+      .text(u.nome)
+      .font("Helvetica")
+      .moveDown(0.3);
 
     doc
       .fontSize(13)
-      .text(`Data: `, { continued: true })
+      .text("Email: ", { continued: true })
       .font("Helvetica-Bold")
-      .text(b.data)
-      .font("Helvetica");
+      .text(u.email)
+      .font("Helvetica")
+      .moveDown(0.3);
 
     doc
       .fontSize(13)
-      .text(`Horário: `, { continued: true })
+      .text("Ativo: ", { continued: true })
       .font("Helvetica-Bold")
-      .text(b.horario)
-      .font("Helvetica");
+      .text(u.ativo ? "Sim" : "Não")
+      .font("Helvetica")
+      .moveDown(0.3);
 
     function addFooter() {
       const bottom = doc.page.height - 50;
@@ -78,6 +83,13 @@ export function generateBookingReport(bookings: any[]) {
 
     doc.moveDown(1);
   });
+
+    doc
+      .moveTo(50, doc.y)
+      .lineTo(550, doc.y)
+      .strokeColor("#cccccc")
+      .stroke()
+      .moveDown(2);
 
   return doc;
 }
