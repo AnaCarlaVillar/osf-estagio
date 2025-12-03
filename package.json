@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node dist/src/backend/start.js",
+    "start": "node dist/backend/start.js",
     "dev": "nodemon --watch src/**/*.ts --exec node --loader ts-node/esm src/backend/start.ts",
     "db:setup": "node --loader ts-node/esm src/backend/database/dbSetup.ts",
     "db:drop": "node --loader ts-node/esm src/backend/database/dbDrop.ts"
