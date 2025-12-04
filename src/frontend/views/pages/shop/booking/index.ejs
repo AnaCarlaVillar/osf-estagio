@@ -1,16 +1,16 @@
 <!-- booking/index.ejs -->
 
-<%- include('../../../partials/head') %>
-<%- include('../../../partials/header') %>
+<%- include('../../../partials/head') %> <%- include('../../../partials/header')
+%>
 <main class="section is-flex-grow-1">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         <div class="box">
           <form action="/confirm/<%= token %>" method="GET">
-            <input type="hidden" name="service" value="<%= service %>">
-            <input type="hidden" name="barber" value="<%= barber %>">
-            <input type="hidden" name="datetime" id="datetime">
+            <input type="hidden" name="service" value="<%= service %>" />
+            <input type="hidden" name="barber" value="<%= barber %>" />
+            <input type="hidden" name="datetime" id="datetime" />
             <div id="calendar"></div>
           </form>
         </div>
@@ -27,43 +27,109 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/locales/pt-br.global.min.js"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const calendarEl = document.getElementById("calendar");
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: "timeGridWeek",
-      editable: true,
-      selectable: true,
+  document.addEventListener("DOMContentLoaded", () => {
+    const WORK_START = "09:00";
+    const WORK_END = "18:30";
+
+    const roundToNext30 = (date) => {
+      const d = new Date(date);
+      d.setSeconds(0, 0);
+      const mod = d.getMinutes() % 30;
+      if (mod !== 0) d.setMinutes(d.getMinutes() + (30 - mod));
+      return d;
+    };
+
+    const nextAllowedTime = () => {
+      const now = new Date();
+      now.setSeconds(0, 0);
+
+      let min = roundToNext30(now);
+
+      min.setMinutes(min.getMinutes() + 30);
+      return min;
+    };
+
+    const formatDate = (d) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+        d.getDate()
+      ).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}:${String(
+        d.getMinutes()
+      ).padStart(2, "0")}`;
+
+    const minAllowed = nextAllowedTime();
+    const disabledEvents = [];
+
+    for (let i = 0; i < 7; i++) {
+      const day = new Date();
+      day.setDate(day.getDate() + i);
+
+      const start = new Date(day);
+      start.setHours(9, 0, 0, 0);
+
+      const end = new Date(day);
+      end.setHours(18, 30, 0, 0);
+
+      if (day.toDateString() === minAllowed.toDateString()) {
+        disabledEvents.push({
+          start,
+          end: minAllowed,
+          display: "background",
+          backgroundColor: "#fff"
+        });
+      }
+    }
+
+    const calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
+      initialView: "customWeek",
+      initialDate: new Date(),
       locale: "pt-br",
+      editable: false,
+      selectable: true,
       allDaySlot: false,
-      slotMinTime: "09:00:00",
-      slotMaxTime: "18:30:00",
+      slotMinTime: WORK_START,
+      slotMaxTime: WORK_END,
       slotDuration: "00:30:00",
       slotLabelInterval: "00:30:00",
-      slotLabelFormat: {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: false,
-      },
-      height: 'auto',
+      slotLabelFormat: { hour: "numeric", minute: "2-digit", hour12: false },
+      height: "auto",
+
       headerToolbar: {
         left: "prev,next today",
         center: "title",
         right: "timeGridDay,timeGridWeek",
       },
-      dateClick: function (info) {
-        const date = info.date;
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
 
-        const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}`;
+      views: {
+        customWeek: { type: "timeGrid", duration: { days: 7 } },
+      },
 
-        document.getElementById("datetime").value = formattedDate;
+      visibleRange: () => {
+        const start = new Date();
+        const end = new Date();
+        end.setDate(start.getDate() + 6);
+        return { start, end };
+      },
+
+      validRange: { start: new Date() },
+
+      events: disabledEvents,
+
+      dateClick: (info) => {
+        const min = nextAllowedTime();
+
+        let clicked = new Date(info.date);
+        clicked.setSeconds(0, 0);
+
+        if (clicked < min) return;
+
+        let finalDate = roundToNext30(clicked);
+        finalDate.setMinutes(finalDate.getMinutes() + 30);
+
+        document.getElementById("datetime").value = formatDate(finalDate);
         document.querySelector("form").submit();
       },
     });
+
     calendar.render();
   });
 </script>
