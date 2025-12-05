@@ -1,4 +1,4 @@
-## Licença de Uso Restrito – Barbearia OSF
+## Proprietary License – Barbearia OSF
 
 ### Copyright (c) 2025, resfriadob
 
