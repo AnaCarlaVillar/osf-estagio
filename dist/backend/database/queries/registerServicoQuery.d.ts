@@ -1,2 +1,2 @@
-export declare const insertServico = "\n    INSERT INTO servico (categoria_id, nome, descricao, duracao, preco)\n    VALUES (?, ?, ?, ?, ?);\n  ";
+export declare const insertServico = "\n    INSERT INTO servico (categoria_id, nome, descricao, duracao, preco)\n    VALUES (?, ?, ?, SEC_TO_TIME(? * 60), ?);\n  ";
 //# sourceMappingURL=registerServicoQuery.d.ts.map

@@ -4,8 +4,8 @@ export const getAll = `
       s.id,
       s.nome,
       s.descricao,
-      s.duracao,
-      s.preco,
+      CAST(TIME_TO_SEC(s.duracao) / 60 AS UNSIGNED) AS duracao,
+      REPLACE(FORMAT(s.preco, 2), '.', ',') AS preco,
       c.categoria AS categoria
     FROM servico s
     JOIN categoria c ON c.id = s.categoria_id;
@@ -15,8 +15,8 @@ export const getById = `
       s.id,
       s.nome,
       s.descricao,
-      s.duracao,
-      s.preco,
+      CAST(TIME_TO_SEC(s.duracao) / 60 AS UNSIGNED) AS duracao,
+      REPLACE(FORMAT(s.preco, 2), '.', ',') AS preco,
       c.categoria AS categoria
     FROM servico s
     JOIN categoria c ON c.id = s.categoria_id

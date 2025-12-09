@@ -25,7 +25,9 @@ export const getById = async (req, res) => {
 export const register = async (req, res) => {
     try {
         const { categoria, nome, descricao, duracao, preco } = req.body;
-        await registerModel.registerNewService(categoria, nome, descricao, duracao, preco);
+        const precoNormalizado = typeof preco === "string"
+            ? preco.replace(',', '.') : preco;
+        await registerModel.registerNewService(categoria, nome, descricao, duracao, precoNormalizado);
         console.log(`✅ - Service: \x1b[92m${categoria}\x1b[0m, \x1b[92m${nome}\x1b[0m, \x1b[92m${descricao}\x1b[0m, \x1b[92m${duracao}\x1b[0m, \x1b[92m${preco}\x1b[0m\n`);
         if (!req.user?.id)
             return res.status(401).send("Usuário não autenticado");

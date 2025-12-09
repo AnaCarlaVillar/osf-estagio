@@ -22,76 +22,127 @@ export function generateServiceListReport(services: any[]) {
     .text(`Gerado em: ${creationDate}`, { align: "right" })
     .moveDown(1);
 
-  services.forEach((s) => {
-    doc
-      .moveTo(50, doc.y)
-      .lineTo(550, doc.y)
-      .strokeColor("#cccccc")
-      .stroke()
-      .moveDown(2);
+  const startX = 50;
+  let y = doc.y + 10;
 
-    doc
-      .fillColor("#000")
-      .fontSize(13)
-      .text("Categoria: ", { continued: true })
-      .font("Helvetica-Bold")
-      .text(s.categoria)
-      .font("Helvetica")
-      .moveDown(0.3);
+  const colCat = 110;
+  const colNome = 120;
+  const colDesc = 160;
+  const colDur = 60;
+  const colPreco = 70;
 
-    doc
-      .fontSize(13)
-      .text("Nome: ", { continued: true })
-      .font("Helvetica-Bold")
-      .text(s.nome)
-      .font("Helvetica")
-      .moveDown(0.3);
+  const colWidths = [colCat, colNome, colDesc, colDur, colPreco];
 
-    doc
-      .fontSize(13)
-      .text("Descrição: ", { continued: true })
-      .font("Helvetica-Bold")
-      .text(s.descricao || "")
-      .font("Helvetica")
-      .moveDown(0.3);
+  const colXPositions: number[] = [];
+  let accX = startX;
+  colXPositions.push(accX);
+  for (let w of colWidths) {
+    accX += w;
+    colXPositions.push(accX);
+  }
+  const tableRightX = colXPositions[colXPositions.length - 1];
 
-    doc
-      .fontSize(13)
-      .text("Duração: ", { continued: true })
-      .font("Helvetica-Bold")
-      .text(s.duracao)
-      .font("Helvetica")
-      .moveDown(0.3);
+  doc.strokeColor("#000");
+  doc.lineWidth(0.6);
 
-    doc
-      .fontSize(13)
-      .text("Preço: ", { continued: true })
-      .font("Helvetica-Bold")
-      .text(`R$ ${s.preco}`)
-      .font("Helvetica")
-      .moveDown(0.8);
+  doc.font("Helvetica-Bold").fontSize(12);
 
-    function addFooter() {
-      const bottom = doc.page.height - 50;
-      doc
-        .fontSize(10)
-        .fillColor("#555")
-        .text("© 2025 Osf Barbearia, Inc", 50, bottom - 15, {
-          align: "center",
-        });
+  const headerTopY = y - 5;
+  doc.moveTo(startX, headerTopY).lineTo(tableRightX, headerTopY).stroke();
+
+  doc.text("Categoria", startX, y, { width: colCat, align: "center" });
+  doc.text("Nome", startX + colCat, y, { width: colNome, align: "center" });
+  doc.text(
+    "Descrição",
+    startX + colCat + colNome,
+    y,
+    { width: colDesc, align: "center" }
+  );
+  doc.text("Duração", startX + colCat + colNome + colDesc, y, {
+    width: colDur,
+    align: "center",
+  });
+  doc.text(
+    "Preço",
+    startX + colCat + colNome + colDesc + colDur,
+    y,
+    { width: colPreco, align: "center" }
+  );
+
+  y += 18;
+
+  const headerBottomY = y;
+  doc.moveTo(startX, headerBottomY).lineTo(tableRightX, headerBottomY).stroke();
+
+  for (let i = 0; i < colXPositions.length; i++) {
+    const x = colXPositions[i];
+    doc.moveTo(x, headerTopY).lineTo(x, headerBottomY).stroke();
+  }
+
+  const rowHeight = 18;
+
+  function drawVerticalLines(yStart: number, yEnd: number) {
+    for (let i = 0; i < colXPositions.length; i++) {
+      const x = colXPositions[i];
+      doc.moveTo(x, yStart).lineTo(x, yEnd).stroke();
     }
+  }
 
-    addFooter();
+  doc.font("Helvetica").fontSize(11);
+  services.forEach((s) => {
+    const hCat = doc.heightOfString(s.categoria || "", { width: colCat });
+    const hNome = doc.heightOfString(s.nome || "", { width: colNome });
+    const hDesc = doc.heightOfString(s.descricao || "", { width: colDesc });
+    const hDur = doc.heightOfString(String(s.duracao || "") + "m", { width: colDur });
+    const hPreco = doc.heightOfString("R$ " + (s.preco || ""), { width: colPreco });
 
-    doc.moveDown(1);
+    const lineHeight = Math.max(rowHeight, hCat, hNome, hDesc, hDur, hPreco) + 6;
+
+    const yStart = y - 3;
+    const yEnd = y + lineHeight;
+
+    const centerY = (textHeight: number) => y + (lineHeight - textHeight) / 2;
+
+    doc.text(s.categoria || "", startX, centerY(hCat), {
+      width: colCat,
+      align: "center",
+    });
+    doc.text(s.nome || "", startX + colCat, centerY(hNome), {
+      width: colNome,
+      align: "center",
+    });
+    doc.text(s.descricao || "", startX + colCat + colNome, centerY(hDesc), {
+      width: colDesc,
+      align: "center",
+    });
+    doc.text(String(s.duracao || "") + "m", startX + colCat + colNome + colDesc, centerY(hDur), {
+      width: colDur,
+      align: "center",
+    });
+    doc.text("R$ " + (s.preco || ""), startX + colCat + colNome + colDesc + colDur, centerY(hPreco), {
+      width: colPreco,
+      align: "center",
+    });
+
+    drawVerticalLines(yStart, yEnd);
+
+    doc.moveTo(startX, yEnd).lineTo(tableRightX, yEnd).stroke();
+
+    // Avança y
+    y = yEnd;
   });
 
-    doc
-      .moveTo(50, doc.y)
-      .lineTo(550, doc.y)
-      .strokeColor("#cccccc")
-      .stroke()
-      .moveDown(2);
+  doc.moveTo(startX, y).lineTo(tableRightX, y).stroke();
+  doc.moveTo(startX, headerTopY).lineTo(startX, y).stroke();
+  doc.moveTo(tableRightX, headerTopY).lineTo(tableRightX, y).stroke();
+
+  const bottom = doc.page.height - 50;
+  doc
+    .fontSize(10)
+    .fillColor("#555")
+    .text("© 2025 Osf Barbearia, Inc", 50, bottom - 15, {
+      align: "center",
+    });
 
   return doc;
 }

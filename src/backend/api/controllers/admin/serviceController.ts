@@ -29,12 +29,15 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { categoria, nome, descricao, duracao, preco } = req.body;
 
+    const precoNormalizado = typeof preco === "string"
+      ? preco.replace(',', '.') : preco;
+
     await registerModel.registerNewService(
       categoria,
       nome,
       descricao,
       duracao,
-      preco
+      precoNormalizado
     );
 
     console.log(
