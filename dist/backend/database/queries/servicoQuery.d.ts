@@ -1,3 +1,0 @@
-export declare const getAll = "\n    SELECT \n      s.id,\n      s.nome,\n      s.descricao,\n      CAST(TIME_TO_SEC(s.duracao) / 60 AS UNSIGNED) AS duracao,\n      REPLACE(FORMAT(s.preco, 2), '.', ',') AS preco,\n      c.categoria AS categoria\n    FROM servico s\n    JOIN categoria c ON c.id = s.categoria_id;\n  ";
-export declare const getById = "\n    SELECT \n      s.id,\n      s.nome,\n      s.descricao,\n      CAST(TIME_TO_SEC(s.duracao) / 60 AS UNSIGNED) AS duracao,\n      REPLACE(FORMAT(s.preco, 2), '.', ',') AS preco,\n      c.categoria AS categoria\n    FROM servico s\n    JOIN categoria c ON c.id = s.categoria_id\n    WHERE s.id = ?;\n  ";
-//# sourceMappingURL=servicoQuery.d.ts.map

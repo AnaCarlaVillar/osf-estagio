@@ -1,3 +1,4 @@
 {
-    "workbench.colorTheme": "Default Dark Modern"
+    "workbench.colorTheme": "Dark Modern",
+    "workbench.externalBrowser": "brave"
 }
