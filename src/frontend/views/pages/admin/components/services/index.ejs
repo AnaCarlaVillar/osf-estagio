@@ -161,6 +161,79 @@
   </div>
 </div>
 
+<div id="modal-edit-service" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <form id="edit-service-form" method="POST">
+      <input type="hidden" id="edit-service-id" name="id" />
+      <header class="modal-card-head">
+        <p class="modal-card-title">Editar Serviço</p>
+        <button class="delete" aria-label="close" type="button"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" id="edit-service-categoria" name="categoria" placeholder="Categoria" />
+            <span class="icon is-small is-left"><i class="fas fa-list"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" id="edit-service-nome" name="nome" placeholder="Nome" />
+            <span class="icon is-small is-left"><i class="fas fa-file-signature"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" id="edit-service-descricao" name="descricao" placeholder="Descrição" />
+            <span class="icon is-small is-left"><i class="fas fa-comment-dots"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" id="edit-service-duracao" name="duracao" placeholder="Duração Ex: 45 ou 120" />
+            <span class="icon is-small is-left"><i class="fas fa-clock"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" id="edit-service-preco" name="preco" placeholder="Preço Ex: 10 ou 12,50" />
+            <span class="icon is-small is-left"><i class="fas fa-brazilian-real-sign"></i></span>
+          </p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-warning" type="submit">Salvar alterações</button>
+          <button class="button" type="button">Cancelar</button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<div id="modal-delete-service" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <form id="delete-service-form" method="POST">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Excluir Serviço</p>
+        <button class="delete" aria-label="close" type="button"></button>
+      </header>
+      <section class="modal-card-body">
+        <p>Tem certeza que deseja excluir o serviço <strong id="delete-service-nome"></strong>?</p>
+        <p class="has-text-danger mt-2">Essa ação não pode ser desfeita.</p>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-danger" type="submit">Excluir</button>
+          <button class="button" type="button">Cancelar</button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
+
 <script src="/public/js/hideHeroFoot.js"></script>
 <script src="/public/js/insertContent.js"></script>
 <script src="/public/js/modal.js"></script>
@@ -175,10 +248,35 @@
   );
   const services = await fetch("/service").then((r) => r.json());
   console.log("Serviços carregados:", services);
-  insertContent(
+  await insertContent(
     "#service-container",
-    "/public/partials/service.ejs",
+    "/public/partials/service-admin.ejs",
     services
   );
+
+  document.querySelectorAll(".js-edit-service").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const d = btn.dataset;
+      document.getElementById("edit-service-id").value = d.id;
+      document.getElementById("edit-service-nome").value = d.nome;
+      document.getElementById("edit-service-categoria").value = d.categoria;
+      document.getElementById("edit-service-descricao").value = d.descricao;
+      document.getElementById("edit-service-duracao").value = d.duracao;
+      document.getElementById("edit-service-preco").value = d.preco;
+      document.getElementById("edit-service-form").action =
+        `/service/update/${d.id}/<%= token %>`;
+      document.getElementById("modal-edit-service").classList.add("is-active");
+    });
+  });
+
+  document.querySelectorAll(".js-delete-service").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const d = btn.dataset;
+      document.getElementById("delete-service-nome").textContent = d.nome;
+      document.getElementById("delete-service-form").action =
+        `/service/delete/${d.id}/<%= token %>`;
+      document.getElementById("modal-delete-service").classList.add("is-active");
+    });
+  });
 </script>
 <%- include('../../../../partials/footer') %>

@@ -30,6 +30,19 @@
     </div>
   </div>
   <% } %>
+  <% if (cargo === 'funcionario') { %>
+  <div class="container py-4">
+    <div class="box p-0">
+      <form action="/services/view/<%= token %>" method="GET">
+        <input
+          class="button is-link is-fullwidth py-6 has-text-white title is-4"
+          type="submit"
+          value="Minha Agenda"
+        />
+      </form>
+    </div>
+  </div>
+  <% } %>
   <div class="container py-4">
     <div class="box p-0">
       <form action="/pricing/<%= token %>" method="GET">
@@ -44,9 +57,7 @@
 </main>
 
 <script src="/public/js/hideHeroFoot.js"></script>
-<script src="/public/js/showBreadcrumb.js"></script>
 <script>
   setTimeout(() => hideHeroFoot(), 100);
-  setTimeout(() => showBreadcrumb(), 100);
 </script>
 <%- include('../../partials/footer') %>

@@ -1,50 +1,55 @@
-<!-- confirm/index.ejs -->
-
 <%- include('../../../partials/head') %>
 <%- include('../../../partials/header') %>
+
 <main class="section is-flex-grow-1">
   <div class="container">
     <div class="columns is-centered is-multiline">
-      <div
-        class="column is-flex is-justify-content-center is-align-items-center is-narrow"
-      >
+
+      <div class="column is-flex is-justify-content-center is-align-items-center is-narrow">
         <div class="box p-0 m-0">
           <article class="panel is-link m-0">
             <p class="panel-heading has-text-centered py-2">
               Relatório de Agendamento
             </p>
           </article>
+
           <form action="/booking-report/<%= token %>" method="GET">
             <input type="hidden" name="service" value="<%= service %>">
             <input type="hidden" name="barber" value="<%= barber %>">
             <input type="hidden" name="datetime" value="<%= datetime %>">
-            <button class="button px-6 is-fullwidth">
-              <span class="icon">
-                <i
-                  class="fa-solid fa-download has-text-danger has-text-weight-bold"
-                ></i>
-              </span>
-              <p>Download</p>
-              <p></p>
+
+            <button type="submit" class="button px-6 is-fullwidth">
+              Download
             </button>
           </form>
         </div>
       </div>
+
       <div class="divider has-background-danger m-6"></div>
-      <div
-        class="column is-flex is-justify-content-center is-align-items-center is-narrow"
-      >
-        <form action="/home/<%= token %>" method="GET">
-          <button class="button is-success p-5 has-text-weight-bold has-text-white is-size-3">Confirmar Agendamento</button>
+
+      <div class="column is-flex is-justify-content-center is-align-items-center is-narrow">
+        <form action="/confirm/<%= token %>" method="POST">
+
+          <input type="hidden" name="servicoId" value="<%= service %>">
+          <input type="hidden" name="funcionarioId" value="<%= barber %>">
+          <input type="hidden" name="datetime" value="<%= datetime %>">
+
+          <button 
+            type="submit"
+            class="button is-success p-5 has-text-weight-bold has-text-white is-size-4"
+          >
+            Confirmar Agendamento
+          </button>
         </form>
       </div>
+
     </div>
   </div>
 </main>
+
 <script src="/public/js/hideHeroFoot.js"></script>
-<script src="/public/js/showBreadcrumb.js"></script>
 <script>
   setTimeout(() => hideHeroFoot(), 100);
-  setTimeout(() => showBreadcrumb(), 100);
 </script>
+
 <%- include('../../../partials/footer') %>

@@ -21,6 +21,14 @@
               <span>Histórico</span>
             </span>
           </a>
+          <a class="navbar-item has-text-weight-bold" href="<%= typeof token !== 'undefined' && token ? `/products/${token}` : 'javascript:void(0)' %>">
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fas fa-box-open has-text-danger"></i>
+              </span>
+              <span>Produtos</span>
+            </span>
+          </a>
           <a class="navbar-item has-text-weight-bold">
             <span class="icon-text">
               <span class="icon">
@@ -82,36 +90,6 @@
       <p class="subtitle is-3 has-text-black has-text-weight-bold">Barbearia</p>
     </div>
   </div>
-  <is-divider class="has-background-black" style="height: 1px"></is-divider>
-  <div id="breadcrumb" class="is-hidden">
-    <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
-      <ul>
-        <li>
-          <a href="<%= typeof token !== 'undefined' && token ? `/home/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold">Home</a>
-        </li>
-        <li>
-          <a href="<%= typeof token !== 'undefined' && token ? `/pricing/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
-            >Serviços</a
-          >
-        </li>
-        <li>
-          <a href="<%= typeof token !== 'undefined' && token ? `/team/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
-            >Barbeiros</a
-          >
-        </li>
-        <li>
-          <a href="<%= typeof token !== 'undefined' && token ? `/booking/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
-            >Horários</a
-          >
-        </li>
-        <li>
-          <a href="<%= typeof token !== 'undefined' && token ? `/confirm/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold"
-            >Agendar</a
-          >
-        </li>
-      </ul>
-    </nav>
-  </div>
   <div class="hero-foot">
     <nav class="tabs is-boxed">
       <div class="container">
@@ -152,6 +130,17 @@
           </li>
         </ul>
       </div>
+    </nav>
+  </div>
+  <div id="breadcrumb" class="is-hidden">
+    <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="<%= typeof token !== 'undefined' && token ? `/home/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold">Home</a></li>
+        <li><a href="<%= typeof token !== 'undefined' && token ? `/pricing/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold">Serviços</a></li>
+        <li><a href="<%= typeof token !== 'undefined' && token ? `/team/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold">Barbeiros</a></li>
+        <li><a href="<%= typeof token !== 'undefined' && token ? `/booking/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold">Horários</a></li>
+        <li><a href="<%= typeof token !== 'undefined' && token ? `/confirm/${token}` : 'javascript:void(0)' %>" class="has-text-white has-text-weight-bold">Agendar</a></li>
+      </ul>
     </nav>
   </div>
 </section>

@@ -1,0 +1,2 @@
+ALTER TABLE funcionario ADD COLUMN cpf VARCHAR(14) UNIQUE AFTER usuario_id;
+ALTER TABLE funcionario ADD COLUMN telefone VARCHAR(20) AFTER cpf;

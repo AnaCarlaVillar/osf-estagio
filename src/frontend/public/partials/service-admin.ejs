@@ -1,0 +1,48 @@
+<!-- service-admin.ejs -->
+
+<div
+  class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
+>
+  <div class="box p-0 m-0">
+    <article class="panel is-link">
+      <p class="panel-heading has-text-centered">{{nome}}</p>
+      <p class="panel-block has-text-centered">Categoria:&nbsp;<span class="has-text-weight-bold">{{categoria}}</span></p>
+      <p class="panel-block has-text-centered">{{descricao}}</p>
+      <a class="panel-block has-background-dark has-text-white has-text-weight-bold">
+        <span class="panel-icon">
+          <i class="fas fa-clock has-text-danger" aria-hidden="true"></i>
+        </span>
+        {{duracao}}m
+        <div class="px-4">|</div>
+        <span class="panel-icon">
+          <i class="fas fa-brazilian-real-sign has-text-danger" aria-hidden="true"></i>
+        </span>
+        {{preco}}
+      </a>
+      <div class="panel-block is-justify-content-center" style="gap:0.5rem">
+        <button
+          type="button"
+          class="button is-warning is-small js-edit-service"
+          style="flex:1"
+          data-id="{{id}}"
+          data-nome="{{nome}}"
+          data-categoria="{{categoria}}"
+          data-descricao="{{descricao}}"
+          data-duracao="{{duracao}}"
+          data-preco="{{preco}}"
+        >
+          <span class="icon"><i class="fas fa-pen"></i></span>
+          <span>Editar</span>
+        </button>
+        <button
+          type="button"
+          class="button is-danger is-small js-delete-service"
+          data-id="{{id}}"
+          data-nome="{{nome}}"
+        >
+          <span class="icon"><i class="fas fa-trash"></i></span>
+        </button>
+      </div>
+    </article>
+  </div>
+</div>

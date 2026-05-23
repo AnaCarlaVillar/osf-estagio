@@ -1,143 +1,254 @@
 <!-- booking/index.ejs -->
 
-<%- include('../../../partials/head') %> <%- include('../../../partials/header')
-%>
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/header') %>
+
 <main class="section is-flex-grow-1">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
+
+        <% if (typeof isBarber !== 'undefined' && isBarber) { %>
+        <div class="notification is-info is-light mb-4">
+          <strong>Modo barbeiro/admin:</strong> Todos os horários estão disponíveis para agendamento.
+        </div>
+        <% } %>
+
         <div class="box">
-          <form action="/confirm/<%= token %>" method="GET">
+          <form action="/confirm/<%= token %>" method="GET" id="booking-form">
             <input type="hidden" name="service" value="<%= service %>" />
-            <input type="hidden" name="barber" value="<%= barber %>" />
+            <input type="hidden" name="barber"  value="<%= barber || '' %>" />
             <input type="hidden" name="datetime" id="datetime" />
-            <div id="calendar"></div>
+
+            <!-- Navegação de data -->
+            <div class="is-flex is-align-items-center is-justify-content-space-between mb-5">
+              <button type="button" id="prev-day" class="button is-light is-rounded px-4">
+                <span class="icon"><i class="fas fa-chevron-left"></i></span>
+              </button>
+
+              <div class="has-text-centered">
+                <p id="day-label"  class="title is-5 mb-0"></p>
+                <p id="date-label" class="subtitle is-6 mt-1 mb-0 has-text-grey"></p>
+              </div>
+
+              <button type="button" id="next-day" class="button is-light is-rounded px-4">
+                <span class="icon"><i class="fas fa-chevron-right"></i></span>
+              </button>
+            </div>
+
+            <!-- Slots de horário -->
+            <div id="time-slots" class="is-flex is-flex-wrap-wrap is-justify-content-center"></div>
+
+            <!-- Ver mais -->
+            <div id="ver-mais-wrap" class="has-text-centered mt-4" style="display:none">
+              <a id="ver-mais" class="has-text-link has-text-weight-bold is-size-6" style="cursor:pointer">
+                VER MAIS
+              </a>
+            </div>
           </form>
         </div>
+
       </div>
     </div>
   </div>
 </main>
 
-<link
-  href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"
-  rel="stylesheet"
-/>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/locales/pt-br.global.min.js"></script>
+<style>
+  .slot-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    margin: 5px;
+    border: 1.5px solid #dbdbdb;
+    border-radius: 999px;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #363636;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    font-family: inherit;
+  }
+  .slot-btn:hover {
+    background: #3273dc;
+    color: #fff;
+    border-color: #3273dc;
+  }
+  .slot-btn .icon { font-size: 0.8rem; }
+</style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const WORK_START = "09:00";
-    const WORK_END = "18:30";
+  document.addEventListener("DOMContentLoaded", async () => {
+    const isBarber     = <%= isBarber %>;
+    const token        = '<%= token %>';
+    const selectedBarber = '<%= barber || "" %>';
+    const selectedService = '<%= service || "" %>';
 
-    const roundToNext30 = (date) => {
-      const d = new Date(date);
-      d.setSeconds(0, 0);
-      const mod = d.getMinutes() % 30;
-      if (mod !== 0) d.setMinutes(d.getMinutes() + (30 - mod));
+    const ALLOWED_TIMES = [
+      '08:00','08:30','09:00','09:30','10:00','10:30','11:00',
+      '13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00'
+    ];
+    const INITIAL_SHOW   = 12;
+    const MAX_DAYS_AHEAD = 30;
+
+    const PT_DAYS   = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+    const PT_MONTHS = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+    function skipSunday(date, dir) {
+      const d = new Date(date); d.setHours(0,0,0,0);
+      while (d.getDay() === 0) d.setDate(d.getDate() + dir);
       return d;
-    };
+    }
 
-    const nextAllowedTime = () => {
+    let currentDate  = skipSunday(new Date(), 1);
+    let bookedTimes  = [];
+    let showingAll   = false;
+    let cachedSlots  = [];
+
+    const pad = n => String(n).padStart(2,'0');
+
+    function dateStr(d) {
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    }
+
+    function minAllowedTime() {
       const now = new Date();
-      now.setSeconds(0, 0);
+      now.setSeconds(0,0);
+      const mod = now.getMinutes() % 30;
+      if (mod !== 0) now.setMinutes(now.getMinutes() + (30 - mod));
+      now.setMinutes(now.getMinutes() + 30);
+      return now;
+    }
 
-      let min = roundToNext30(now);
+    function generateSlots(date) {
+      const today  = new Date(); today.setHours(0, 0, 0, 0);
+      const dayStr = dateStr(date);
+      const min    = minAllowedTime();
 
-      min.setMinutes(min.getMinutes() + 30);
-      return min;
-    };
+      // dias anteriores a hoje nunca têm slots disponíveis
+      if (date < today) return [];
 
-    const formatDate = (d) =>
-      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
-        d.getDate()
-      ).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}:${String(
-        d.getMinutes()
-      ).padStart(2, "0")}`;
+      return ALLOWED_TIMES.filter(timeLabel => {
+        const [h, m] = timeLabel.split(':').map(Number);
+        const slotDt = new Date(date); slotDt.setHours(h, m, 0, 0);
+        const isPast = slotDt < min;
+        const isBooked = bookedTimes.some(b =>
+          b.data === dayStr && String(b.hora).substring(0,5) === timeLabel
+        );
+        return !isPast && !isBooked;
+      }).map(timeLabel => ({ timeLabel, datetime: `${dayStr}T${timeLabel}` }));
+    }
 
-    const minAllowed = nextAllowedTime();
-    const disabledEvents = [];
-
-    for (let i = 0; i < 7; i++) {
-      const day = new Date();
-      day.setDate(day.getDate() + i);
-
-      const start = new Date(day);
-      start.setHours(9, 0, 0, 0);
-
-      const end = new Date(day);
-      end.setHours(18, 30, 0, 0);
-
-      if (day.toDateString() === minAllowed.toDateString()) {
-        disabledEvents.push({
-          start,
-          end: minAllowed,
-          display: "background",
-          backgroundColor: "#fff"
+    async function loadBooked(barberId) {
+      if (!barberId) {
+        console.warn('[agenda] barberId vazio');
+        return [];
+      }
+      try {
+        const r = await fetch(`/api/booked-times?funcionarioId=${barberId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
         });
+        if (!r.ok) {
+          console.error(`[agenda] API erro ${r.status}:`, await r.text());
+          return [];
+        }
+        const d = await r.json();
+        console.log(`[agenda] Barbeiro ${barberId} — ocupados:`, d.bookedTimes);
+        return d.bookedTimes || [];
+      } catch (e) {
+        console.error('[agenda] Falha na requisição:', e);
+        return [];
       }
     }
 
-    const calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
-      initialView: "customWeek",
-      initialDate: new Date(),
-      locale: "pt-br",
-      editable: false,
-      selectable: true,
-      allDaySlot: false,
-      slotMinTime: WORK_START,
-      slotMaxTime: WORK_END,
-      slotDuration: "00:30:00",
-      slotLabelInterval: "00:30:00",
-      slotLabelFormat: { hour: "numeric", minute: "2-digit", hour12: false },
-      height: "auto",
+    function renderDateLabel() {
+      document.getElementById('day-label').textContent  = PT_DAYS[currentDate.getDay()];
+      document.getElementById('date-label').textContent =
+        `${currentDate.getDate()} de ${PT_MONTHS[currentDate.getMonth()]} de ${currentDate.getFullYear()}`;
+    }
 
-      headerToolbar: {
-        left: "prev,next today",
-        center: "title",
-        right: "timeGridDay,timeGridWeek",
-      },
+    function renderSlots() {
+      const container = document.getElementById('time-slots');
+      const verWrap   = document.getElementById('ver-mais-wrap');
+      container.innerHTML = '';
+      verWrap.style.display = 'none';
 
-      views: {
-        customWeek: { type: "timeGrid", duration: { days: 7 } },
-      },
+      if (currentDate.getDay() === 0) {
+        container.innerHTML = '<p class="has-text-grey has-text-centered py-5" style="width:100%">🔒 A barbearia não atende aos domingos.</p>';
+        return;
+      }
 
-      visibleRange: () => {
-        const start = new Date();
-        const end = new Date();
-        end.setDate(start.getDate() + 6);
-        return { start, end };
-      },
+      cachedSlots = generateSlots(currentDate);
 
-      validRange: { start: new Date() },
+      if (cachedSlots.length === 0) {
+        container.innerHTML = '<p class="has-text-grey has-text-centered py-5" style="width:100%">Nenhum horário disponível para este dia.</p>';
+        return;
+      }
 
-      events: disabledEvents,
+      const visible = showingAll ? cachedSlots : cachedSlots.slice(0, INITIAL_SHOW);
 
-      dateClick: (info) => {
-        const min = nextAllowedTime();
+      visible.forEach(slot => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'slot-btn';
+        btn.innerHTML = `<span class="icon"><i class="fas fa-clock"></i></span><span>${slot.timeLabel}</span>`;
+        btn.addEventListener('click', () => {
+          if (!selectedService) {
+            alert('Serviço não selecionado. Volte e selecione um serviço antes de agendar.');
+            return;
+          }
+          if (!selectedBarber) {
+            alert('Barbeiro não definido. Volte e selecione um barbeiro antes de agendar.');
+            return;
+          }
+          document.getElementById('datetime').value = slot.datetime;
+          document.getElementById('booking-form').submit();
+        });
+        container.appendChild(btn);
+      });
 
-        let clicked = new Date(info.date);
-        clicked.setSeconds(0, 0);
+      verWrap.style.display = (!showingAll && cachedSlots.length > INITIAL_SHOW) ? 'block' : 'none';
+    }
 
-        if (clicked < min) return;
+    async function refresh() {
+      bookedTimes = await loadBooked(selectedBarber);
+      showingAll  = false;
+      renderDateLabel();
+      renderSlots();
+    }
 
-        let finalDate = roundToNext30(clicked);
-        finalDate.setMinutes(finalDate.getMinutes() + 30);
-
-        document.getElementById("datetime").value = formatDate(finalDate);
-        document.querySelector("form").submit();
-      },
+    // Navegação
+    document.getElementById('prev-day').addEventListener('click', () => {
+      const today = new Date(); today.setHours(0,0,0,0);
+      const candidate = new Date(currentDate); candidate.setDate(candidate.getDate() - 1);
+      const prev = skipSunday(candidate, -1);
+      if (prev < today) return;
+      currentDate = prev;
+      renderDateLabel();
+      renderSlots();
     });
 
-    calendar.render();
+    document.getElementById('next-day').addEventListener('click', () => {
+      const max = new Date(); max.setDate(max.getDate() + MAX_DAYS_AHEAD);
+      const candidate = new Date(currentDate); candidate.setDate(candidate.getDate() + 1);
+      const next = skipSunday(candidate, 1);
+      if (next > max) return;
+      currentDate = next;
+      renderDateLabel();
+      renderSlots();
+    });
+
+    document.getElementById('ver-mais').addEventListener('click', () => {
+      showingAll = true;
+      renderSlots();
+    });
+
+    await refresh();
   });
 </script>
 
 <script src="/public/js/hideHeroFoot.js"></script>
-<script src="/public/js/showBreadcrumb.js"></script>
 <script>
   setTimeout(() => hideHeroFoot(), 100);
-  setTimeout(() => showBreadcrumb(), 100);
 </script>
 <%- include('../../../partials/footer') %>

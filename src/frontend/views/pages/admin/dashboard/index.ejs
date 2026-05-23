@@ -4,37 +4,63 @@
 <%- include('../../../partials/header') %>
 <main class="section is-flex-grow-1">
   <div class="container pt-6">
-    <div class="columns is-8">
-      <div class="column mx-5">
+    <div class="columns is-multiline">
+
+      <div class="column is-half px-5 pb-5">
         <div class="box py-6">
           <form action="/services/<%= token %>" method="GET">
             <p class="title has-text-centered">Editar Serviços</p>
-            <button
-              class="button is-warning is-fullwidth py-5 has-text-white title is-4"
-              type="submit"
-            >
-              <span class="icon">
-                <i class="fa-solid fa-file-pen"></i>
-              </span>
+            <button class="button is-warning is-fullwidth py-5 has-text-white title is-4" type="submit">
+              <span class="icon"><i class="fa-solid fa-file-pen"></i></span>
             </button>
           </form>
         </div>
       </div>
-      <div class="column mx-5">
+
+      <div class="column is-half px-5 pb-5">
         <div class="box py-6">
           <form action="/employees/<%= token %>" method="GET">
             <p class="title has-text-centered">Editar Funcionários</p>
-            <button
-              class="button is-warning is-fullwidth py-5 has-text-white title is-4"
-              type="submit"
-            >
-              <span class="icon">
-                <i class="fa-solid fa-user-pen"></i>
-              </span>
+            <button class="button is-warning is-fullwidth py-5 has-text-white title is-4" type="submit">
+              <span class="icon"><i class="fa-solid fa-user-pen"></i></span>
             </button>
           </form>
         </div>
       </div>
+
+      <div class="column is-half px-5 pb-5">
+        <div class="box py-6">
+          <form action="/services/view/<%= token %>" method="GET">
+            <p class="title has-text-centered">Ver Serviços</p>
+            <button class="button is-warning is-fullwidth py-5 has-text-white title is-4" type="submit">
+              <span class="icon"><i class="fa-solid fa-eye"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="column is-half px-5 pb-5">
+        <div class="box py-6">
+          <form action="/admin/produtos/<%= token %>" method="GET">
+            <p class="title has-text-centered">Produtos</p>
+            <button class="button is-warning is-fullwidth py-5 has-text-white title is-4" type="submit">
+              <span class="icon"><i class="fa-solid fa-box-open"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="column is-full px-5 pb-5">
+        <div class="box py-6">
+          <form action="/financeiro/<%= token %>" method="GET">
+            <p class="title has-text-centered">Financeiro</p>
+            <button class="button is-warning is-fullwidth py-5 has-text-white title is-4" type="submit">
+              <span class="icon"><i class="fa-solid fa-money-bill-trend-up"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+
     </div>
   </div>
 </main>

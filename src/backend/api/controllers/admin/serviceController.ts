@@ -5,7 +5,56 @@ import * as model from '../../models/servicoModel.js';
 import * as registerModel from '../../models/registerServicoModel.js';
 import { generateUserToken } from "../../../core/utils/token.js";
 
-export const getAll = async (req: Request, res: Response) => {
+export const remove = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    await model.deleteService(id);
+
+    console.log(`✅ - Service deleted: \x1b[92m${id}\x1b[0m\n`);
+
+    if (!req.user?.id) return res.status(401).send("Usuário não autenticado");
+
+    const token = generateUserToken({
+      id: req.user.id,
+      cargo: req.user.cargo ?? null,
+    });
+
+    return res.redirect(`/services/${token}`);
+
+  } catch (err) {
+    console.error('❌ - Service delete:', err);
+    return res.status(500).send('Erro ao excluir serviço.');
+  }
+};
+
+export const update = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const { categoria, nome, descricao, duracao, preco } = req.body;
+
+    const precoNormalizado = typeof preco === "string"
+      ? preco.replace(',', '.') : preco;
+
+    await model.updateService(id, categoria, nome, descricao, duracao, precoNormalizado);
+
+    console.log(`✅ - Service updated: \x1b[92m${id}\x1b[0m\n`);
+
+    if (!req.user?.id) return res.status(401).send("Usuário não autenticado");
+
+    const token = generateUserToken({
+      id: req.user.id,
+      cargo: req.user.cargo ?? null,
+    });
+
+    return res.redirect(`/services/${token}`);
+
+  } catch (err) {
+    console.error('❌ - Service update:', err);
+    return res.status(500).send('Erro ao atualizar serviço.');
+  }
+};
+
+export const getAll = async (_req: Request, res: Response) => {
   try {
     const servicos = await model.getAll();
     res.json(servicos);

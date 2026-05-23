@@ -7,6 +7,7 @@
   <form action="/booking/<%= token %>" method="GET">
     <input type="hidden" name="service" value="<%= service %>">
     <div class="columns is-centered is-multiline" id="category-container">
+      <% barbers.forEach((barber, i) => { %>
       <div
         class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
       >
@@ -14,70 +15,23 @@
           <figure class="image is-128x128 ml-6 mb-2">
             <img
               class="is-rounded"
-              src="../public/images/barber1.png"
-              alt="Barbeiro 1"
+              src="../public/images/barber<%= (i % 3) + 1 %>.png"
+              alt="<%= barber.nome %>"
             />
           </figure>
-          <p class="title is-4 has-text-centered">Fábio</p>
-          <p class="subtitle is-6">Especialista em cortes modernos</p>
+          <p class="title is-4 has-text-centered"><%= barber.nome %></p>
+          <p class="subtitle is-6">Barbeiro</p>
           <button
             type="submit"
             name="barber"
-            value="Fábio"
+            value="<%= barber.id %>"
             class="button is-success is-fullwidth"
           >
             Selecionar
           </button>
         </div>
       </div>
-
-      <div
-        class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
-      >
-        <div class="box">
-          <figure class="image is-128x128 ml-6 mb-2">
-            <img
-              class="is-rounded"
-              src="../public/images/barber2.png"
-              alt="Barbeiro 2"
-            />
-          </figure>
-          <p class="title is-4 has-text-centered">Felipe</p>
-          <p class="subtitle is-6">Especialista em barba e bigode</p>
-          <button
-            type="submit"
-            name="barber"
-            value="Felipe"
-            class="button is-success is-fullwidth"
-          >
-            Selecionar
-          </button>
-        </div>
-      </div>
-
-      <div
-        class="column is-flex is-justify-content-center is-align-items-center is-narrow m-1"
-      >
-        <div class="box">
-          <figure class="image is-128x128 ml-6 mb-2">
-            <img
-              class="is-rounded"
-              src="../public/images/barber3.png"
-              alt="Barbeiro 3"
-            />
-          </figure>
-          <p class="title is-4 has-text-centered">Rafael</p>
-          <p class="subtitle is-6">Especialista em cortes clássicos</p>
-          <button
-            type="submit"
-            name="barber"
-            value="Rafael"
-            class="button is-success is-fullwidth"
-          >
-            Selecionar
-          </button>
-        </div>
-      </div>
+      <% }) %>
     </div>
   </form>
 </main>
@@ -85,9 +39,7 @@
 <footer id="footer-placeholder"></footer>
 <script src="/public/js/layout.js"></script>
 <script src="/public/js/hideHeroFoot.js"></script>
-<script src="/public/js/showBreadcrumb.js"></script>
 <script>
   setTimeout(() => hideHeroFoot(), 100);
-  setTimeout(() => showBreadcrumb(), 100);
 </script>
 <%- include('../../../partials/footer') %>

@@ -1,0 +1,61 @@
+<!-- products/index.ejs -->
+
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/header') %>
+
+<main class="section is-flex-grow-1">
+  <div class="container">
+    <h1 class="title has-text-centered mb-4">Produtos</h1>
+
+    <p class="has-text-centered has-text-grey is-size-7 mb-5">
+      <i class="fas fa-triangle-exclamation has-text-warning mr-1"></i>
+      Não fazemos entrega — retirar na barbearia.
+    </p>
+
+    <% if (!produtos || produtos.length === 0) { %>
+      <div class="columns is-centered">
+        <div class="column is-half has-text-centered">
+          <span class="icon is-large has-text-grey-light" style="font-size:3rem">
+            <i class="fas fa-box-open"></i>
+          </span>
+          <p class="title is-5 has-text-grey mt-4">Nenhum produto disponível no momento.</p>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="columns is-multiline is-centered">
+        <% produtos.forEach(p => { %>
+        <div class="column is-one-quarter-desktop is-one-third-tablet is-half-mobile">
+          <div class="box p-0">
+            <article class="panel is-link">
+
+              <button class="panel-block is-justify-content-center has-text-white has-text-weight-bold is-size-5"
+                style="background:transparent; border:none; width:100%; cursor:default">
+                <%= p.nome %>
+              </button>
+
+              <p class="panel-block">
+                <span class="has-text-weight-bold has-text-danger mr-1">Estoque:</span>
+                <%= p.quantidade %> un.
+              </p>
+
+              <p class="panel-block"><%= p.descricao || '&nbsp;' %></p>
+
+              <a class="panel-block has-background-dark has-text-white has-text-weight-bold">
+                <span class="panel-icon">
+                  <i class="fas fa-brazilian-real-sign has-text-danger"></i>
+                </span>
+                <%= Number(p.preco).toFixed(2).replace('.', ',') %>
+              </a>
+
+            </article>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</main>
+
+<script src="/public/js/hideHeroFoot.js"></script>
+<script>setTimeout(() => hideHeroFoot(), 100);</script>
+<%- include('../../../partials/footer') %>

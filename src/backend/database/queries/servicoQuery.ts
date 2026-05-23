@@ -13,7 +13,7 @@ export const getAll = `
   `;
 
 export const getById = `
-    SELECT 
+    SELECT
       s.id,
       s.nome,
       s.descricao,
@@ -24,3 +24,15 @@ export const getById = `
     JOIN categoria c ON c.id = s.categoria_id
     WHERE s.id = ?;
   `;
+
+export const updateServico = `
+    UPDATE servico
+    SET categoria_id = (SELECT id FROM categoria WHERE categoria = ? LIMIT 1),
+        nome = ?,
+        descricao = ?,
+        duracao = SEC_TO_TIME(? * 60),
+        preco = ?
+    WHERE id = ?;
+  `;
+
+export const deleteServico = `DELETE FROM servico WHERE id = ?;`;

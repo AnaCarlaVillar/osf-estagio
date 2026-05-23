@@ -15,13 +15,19 @@ import services from "./api/routes/admin/servicesRoute.js";
 import category from "./api/routes/admin/categoryRoute.js";
 import service from "./api/routes/admin/serviceRoute.js";
 import employees from "./api/routes/admin/employeesRoute.js";
+import registerEmployee from "./api/routes/admin/registerEmployeeRoute.js";
 import pricing from "./api/routes/global/pricingRoute.js";
 import team from "./api/routes/global/teamRoute.js";
+import products from "./api/routes/global/productsRoute.js";
+import produtoAdmin from "./api/routes/admin/produtoRoute.js";
 import booking from "./api/routes/global/bookingRoute.js";
 import confirm from "./api/routes/global/confirmRoute.js";
+import agendamento from "./api/routes/global/agendamentoRoute.js";
 import bookingReport from "./api/routes/report/bookingRoute_report.js";
 import serviceListReport from "./api/routes/report/serviceListRoute_report.js";
 import userlistReport from "./api/routes/report/userListRoute_report.js";
+import agendamentoReport from "./api/routes/report/agendamentoRoute_report.js";
+import financeiro from "./api/routes/admin/financeiroRoute.js";
 
 const app = express();
 
@@ -59,12 +65,18 @@ app.use('/', services);
 app.use('/', category);
 app.use('/', service);
 app.use('/', employees);
+app.use('/', registerEmployee);
 app.use('/', pricing);
 app.use('/', team);
 app.use('/', booking);
 app.use('/', confirm);
+app.use('/', products);
+app.use('/', produtoAdmin);
+app.use('/', agendamento);
 app.use('/', bookingReport);
 app.use('/', serviceListReport);
 app.use('/', userlistReport);
+app.use('/', agendamentoReport);
+app.use('/', financeiro);
 
 export default app;

@@ -3,11 +3,121 @@
 <%- include('../../../../partials/head') %>
 <%- include('../../../../partials/header') %>
 <main class="section is-flex-grow-1">
-  <div class="container"></div>
+  <div class="container">
+    <p class="title has-text-centered has-text-danger mb-5">Funcionários</p>
+
+    <div class="columns is-centered">
+      <div class="column is-narrow">
+        <a href="/admin/register-employee/<%= token %>" class="button is-success is-medium">
+          <span class="icon"><i class="fas fa-user-plus"></i></span>
+          <span>Cadastrar Funcionário</span>
+        </a>
+      </div>
+    </div>
+
+    <% if (typeof funcionarios !== 'undefined' && funcionarios.length > 0) { %>
+    <div class="box mt-5">
+      <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Cargo</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% funcionarios.forEach(f => { %>
+          <tr>
+            <td><strong><%= f.nome %></strong></td>
+            <td><%= f.email %></td>
+            <td><%= f.cpf || '—' %></td>
+            <td><%= f.telefone || '—' %></td>
+            <td>
+              <span class="tag <%= f.cargo === 'admin' ? 'is-danger' : 'is-info' %>">
+                <%= f.cargo %>
+              </span>
+            </td>
+            <td>
+              <% if (f.cargo !== 'admin') { %>
+              <button class="button is-warning is-small js-modal-trigger"
+                data-target="modal-edit"
+                onclick="fillEdit(<%= JSON.stringify(f) %>)">
+                <span class="icon"><i class="fas fa-pen"></i></span>
+              </button>
+              <% } %>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } else { %>
+    <p class="has-text-grey has-text-centered mt-5">Nenhum funcionário cadastrado.</p>
+    <% } %>
+  </div>
 </main>
 
-<script src="/public/js/hideHeroFoot.js"></script>
+<!-- Modal editar funcionário -->
+<div id="modal-edit" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <form id="form-edit" method="POST">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Editar Funcionário</p>
+        <button class="delete" aria-label="close" type="button"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" name="nome" id="edit-nome" placeholder="Nome completo" required />
+            <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" name="cpf" id="edit-cpf" placeholder="CPF" />
+            <span class="icon is-small is-left"><i class="fas fa-id-card"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" name="telefone" id="edit-telefone" placeholder="Telefone" />
+            <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="email" name="email" id="edit-email" placeholder="E-mail" required />
+            <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+          </p>
+        </div>
+        <input type="hidden" name="cargo" id="edit-cargo" />
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-warning" type="submit">Salvar</button>
+          <button class="button" type="button">Cancelar</button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
+
 <script>
-  setTimeout(() => hideHeroFoot(), 100);
+  function fillEdit(f) {
+    document.getElementById('edit-nome').value     = f.nome;
+    document.getElementById('edit-cpf').value      = f.cpf || '';
+    document.getElementById('edit-telefone').value = f.telefone || '';
+    document.getElementById('edit-email').value    = f.email;
+    document.getElementById('edit-cargo').value = f.cargo;
+    document.getElementById('form-edit').action = `/admin/edit-employee/<%= token %>/${f.id}`;
+  }
 </script>
+
+<script src="/public/js/hideHeroFoot.js"></script>
+<script src="/public/js/modal.js"></script>
+<script>setTimeout(() => hideHeroFoot(), 100);</script>
 <%- include('../../../../partials/footer') %>

@@ -1,0 +1,178 @@
+<!-- admin/produtos/index.ejs -->
+
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/header') %>
+
+<main class="section is-flex-grow-1">
+  <p class="title has-text-centered has-text-danger">Produtos</p>
+
+  <div class="columns is-centered is-multiline" id="produto-container">
+
+    <!-- Botão adicionar -->
+    <div class="column is-flex is-justify-content-center is-align-items-center is-narrow">
+      <div class="box p-0 m-0">
+        <button class="js-modal-trigger button is-info is-dark" data-target="modal-produto">
+          <span class="icon"><i class="fa-solid fa-plus"></i></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cards de produtos -->
+    <% if (typeof produtos !== 'undefined') { %>
+      <% produtos.forEach(p => { %>
+      <div class="column is-flex is-justify-content-center is-align-items-center is-narrow">
+        <div class="box p-0 m-0">
+          <article class="panel is-link" style="min-width:200px">
+            <p class="panel-heading has-text-centered"><%= p.nome %></p>
+            <p class="panel-block"><%= p.descricao || '—' %></p>
+            <a class="panel-block has-background-dark has-text-white has-text-weight-bold">
+              <span class="panel-icon">
+                <i class="fas fa-box has-text-danger"></i>
+              </span>
+              <%= p.quantidade %> un.
+              <div class="px-3">|</div>
+              <span class="panel-icon">
+                <i class="fas fa-brazilian-real-sign has-text-danger"></i>
+              </span>
+              <%= Number(p.preco).toFixed(2).replace('.', ',') %>
+            </a>
+            <div class="panel-block is-justify-content-space-between">
+              <span class="tag <%= p.ativo ? 'is-success' : 'is-danger' %> is-light">
+                <%= p.ativo ? 'Ativo' : 'Inativo' %>
+              </span>
+              <div class="buttons mb-0">
+                <button class="button is-warning is-small js-modal-trigger"
+                  data-target="modal-edit"
+                  onclick="fillEdit(<%= JSON.stringify(p) %>)">
+                  <span class="icon"><i class="fas fa-pen"></i></span>
+                </button>
+                <form action="/admin/produtos/<%= token %>/<%= p.id %>/del" method="POST" style="display:inline"
+                      onsubmit="return confirm('Remover <%= p.nome %>?')">
+                  <button type="submit" class="button is-danger is-small">
+                    <span class="icon"><i class="fas fa-trash"></i></span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <% }) %>
+    <% } %>
+
+  </div>
+</main>
+
+<!-- Modal: Novo Produto -->
+<div id="modal-produto" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <form action="/admin/produtos/<%= token %>" method="POST">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Adicionar Produto</p>
+        <button class="delete" aria-label="close" type="button"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" name="nome" placeholder="Nome do produto" required />
+            <span class="icon is-small is-left"><i class="fas fa-file-signature"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" name="descricao" placeholder="Descrição" />
+            <span class="icon is-small is-left"><i class="fas fa-comment-dots"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="number" name="preco" placeholder="Preço Ex: 10 ou 12.50" min="0.01" step="0.01" required />
+            <span class="icon is-small is-left"><i class="fas fa-brazilian-real-sign"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="number" name="quantidade" placeholder="Quantidade em estoque" min="1" required />
+            <span class="icon is-small is-left"><i class="fas fa-box"></i></span>
+          </p>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-success" type="submit">Save changes</button>
+          <button class="button" type="button">Cancel</button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Editar Produto -->
+<div id="modal-edit" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <form id="form-edit" method="POST">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Editar Produto</p>
+        <button class="delete" aria-label="close" type="button"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" name="nome" id="edit-nome" placeholder="Nome do produto" required />
+            <span class="icon is-small is-left"><i class="fas fa-file-signature"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="text" name="descricao" id="edit-descricao" placeholder="Descrição" />
+            <span class="icon is-small is-left"><i class="fas fa-comment-dots"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="number" name="preco" id="edit-preco" placeholder="Preço Ex: 10 ou 12.50" min="0.01" step="0.01" required />
+            <span class="icon is-small is-left"><i class="fas fa-brazilian-real-sign"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="number" name="quantidade" id="edit-quantidade" placeholder="Quantidade em estoque" min="1" required />
+            <span class="icon is-small is-left"><i class="fas fa-box"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <label class="label">Status</label>
+          <div class="control">
+            <label class="radio"><input type="radio" name="ativo" value="1" id="edit-ativo-sim"> Ativo</label>
+            <label class="radio ml-3"><input type="radio" name="ativo" value="0" id="edit-ativo-nao"> Inativo</label>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons">
+          <button class="button is-warning" type="submit">Save changes</button>
+          <button class="button" type="button">Cancel</button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<script>
+  function fillEdit(p) {
+    document.getElementById('edit-nome').value       = p.nome;
+    document.getElementById('edit-descricao').value  = p.descricao || '';
+    document.getElementById('edit-preco').value      = Number(p.preco).toFixed(2);
+    document.getElementById('edit-quantidade').value = p.quantidade;
+    document.getElementById('edit-ativo-sim').checked = p.ativo == 1;
+    document.getElementById('edit-ativo-nao').checked = p.ativo != 1;
+    document.getElementById('form-edit').action = `/admin/produtos/<%= token %>/${p.id}/edit`;
+  }
+</script>
+
+<script src="/public/js/hideHeroFoot.js"></script>
+<script src="/public/js/modal.js"></script>
+<script>setTimeout(() => hideHeroFoot(), 100);</script>
+<%- include('../../../partials/footer') %>

@@ -1,0 +1,222 @@
+<!-- services/view/index.ejs -->
+
+<%- include('../../../../../partials/head') %>
+<%- include('../../../../../partials/header') %>
+
+<main class="section is-flex-grow-1">
+  <div class="container">
+    <h1 class="title has-text-centered mb-5">Serviços</h1>
+
+    <div class="columns is-centered">
+      <div class="column is-full">
+
+        <!-- Filtro (só admin vê) -->
+        <div class="box mb-4" id="filtro-box" <% if (typeof myFuncionarioId !== 'undefined' && myFuncionarioId) { %>style="display:none"<% } %>>
+          <div class="columns is-vcentered">
+            <div class="column">
+              <div class="field mb-0">
+                <label class="label">Filtrar por Barbeiro</label>
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select id="barbeiroSelect">
+                      <option value="">— Todos os barbeiros —</option>
+                      <% (typeof barbers !== 'undefined' ? barbers : []).forEach(b => { %>
+                        <option value="<%= b.id %>"><%= b.nome %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-narrow is-flex is-align-items-flex-end">
+              <button id="btn-limpar" class="button is-light">Limpar filtro</button>
+            </div>
+          </div>
+          <div id="tags-barbeiro" class="tags mt-3" style="display:none"></div>
+        </div>
+
+        <!-- Tabela -->
+        <div class="box">
+          <div class="is-flex is-justify-content-flex-end mb-3">
+            <span class="tag is-success is-light" id="live-badge">
+              <span class="icon is-small mr-1"><i class="fas fa-circle" style="font-size:0.5rem"></i></span>
+              Ao vivo — atualizado <span id="last-update">agora</span>
+            </span>
+          </div>
+          <div id="empty-msg" class="has-text-centered has-text-grey py-5" style="display:none">
+            Nenhum agendamento encontrado.
+          </div>
+          <table class="table is-fullwidth is-striped is-hoverable" id="tabela-agendamentos">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Barbeiro</th>
+                <th>Serviço</th>
+                <th>Data</th>
+                <th>Horário</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-body"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const token          = '<%= token %>';
+  const myFuncionarioId = '<%= typeof myFuncionarioId !== "undefined" && myFuncionarioId ? myFuncionarioId : "" %>';
+  let allBookings = [];
+
+  const pad = n => String(n).padStart(2, '0');
+
+  function formatData(dataStr) {
+    const parts = String(dataStr).split('T')[0].split('-');
+    return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dataStr;
+  }
+
+  function renderTabela(bookings) {
+    const tbody   = document.getElementById('tabela-body');
+    const tabela  = document.getElementById('tabela-agendamentos');
+    const emptyMsg= document.getElementById('empty-msg');
+    tbody.innerHTML = '';
+
+    if (bookings.length === 0) {
+      tabela.style.display  = 'none';
+      emptyMsg.style.display = 'block';
+      return;
+    }
+
+    tabela.style.display   = '';
+    emptyMsg.style.display = 'none';
+
+    bookings.forEach(b => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${b.cliente_nome    || '—'}</td>
+        <td>${b.funcionario_nome|| '—'}</td>
+        <td>${b.servico_nome    || '—'}</td>
+        <td>${formatData(b.data)}</td>
+        <td>${String(b.hora).substring(0, 5)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function applyFilters() {
+    const barbeiroId = document.getElementById('barbeiroSelect').value;
+    const now = new Date();
+
+    const filtered = allBookings.filter(b => {
+      const slotDt = new Date(`${String(b.data).split('T')[0]}T${String(b.hora).substring(0, 5)}`);
+      const futuro = slotDt >= now;
+      const barbeiro = !barbeiroId || String(b.funcionario_id) === barbeiroId;
+      return futuro && barbeiro;
+    });
+
+    renderTabela(filtered);
+  }
+
+  const POLL_INTERVAL = 15000; // 15 segundos
+
+  function updateTimestamp() {
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    document.getElementById('last-update').textContent =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  }
+
+  const BARBERS = <%- JSON.stringify((typeof barbers !== 'undefined' ? barbers : [])) %>;
+
+  async function loadBookings() {
+    try {
+      const results = [];
+
+      for (const barber of BARBERS) {
+        const r = await fetch(`/api/booked-times?funcionarioId=${barber.id}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!r.ok) continue;
+        const d = await r.json();
+        (d.bookedTimes || []).forEach(b => {
+          results.push({
+            ...b,
+            funcionario_id:   barber.id,
+            funcionario_nome: barber.nome,
+          });
+        });
+      }
+
+      results.sort((a, b) => {
+        const da = `${a.data}T${a.hora}`;
+        const db2 = `${b.data}T${b.hora}`;
+        return da < db2 ? -1 : da > db2 ? 1 : 0;
+      });
+
+      const chegouNovo = results.length > allBookings.length;
+      allBookings = results;
+      applyFilters();
+      updateTimestamp();
+
+      if (chegouNovo) {
+        const badge = document.getElementById('live-badge');
+        badge.classList.remove('is-success');
+        badge.classList.add('is-warning');
+        setTimeout(() => {
+          badge.classList.remove('is-warning');
+          badge.classList.add('is-success');
+        }, 2000);
+      }
+    } catch (e) {
+      console.error('[admin] Falha ao carregar agendamentos:', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadBookings();
+    setInterval(loadBookings, POLL_INTERVAL);
+
+    // Funcionário vê só a própria agenda — filtro automático e bloqueado
+    if (myFuncionarioId) {
+      const sel = document.getElementById('barbeiroSelect');
+      sel.value = myFuncionarioId;
+      sel.disabled = true;
+      document.getElementById('btn-limpar').style.display = 'none';
+    }
+
+    function renderTag() {
+      const select = document.getElementById('barbeiroSelect');
+      const wrap   = document.getElementById('tags-barbeiro');
+      wrap.innerHTML = '';
+      wrap.style.display = select.value ? 'flex' : 'none';
+
+      if (select.value) {
+        const tag = document.createElement('span');
+        tag.className = 'tag is-link is-medium';
+        tag.innerHTML = `<i class="fas fa-user-scissors mr-2"></i>${select.options[select.selectedIndex].text}
+          <button class="delete is-small ml-2" id="tag-delete"></button>`;
+        wrap.appendChild(tag);
+        document.getElementById('tag-delete').addEventListener('click', () => {
+          select.value = '';
+          renderTag();
+          applyFilters();
+        });
+      }
+    }
+
+    document.getElementById('barbeiroSelect').addEventListener('change', () => { renderTag(); applyFilters(); });
+    document.getElementById('btn-limpar').addEventListener('click', () => {
+      document.getElementById('barbeiroSelect').value = '';
+      renderTag();
+      applyFilters();
+    });
+  });
+</script>
+
+<script src="/public/js/hideHeroFoot.js"></script>
+<script>
+  setTimeout(() => hideHeroFoot(), 100);
+</script>
+<%- include('../../../../../partials/footer') %>
